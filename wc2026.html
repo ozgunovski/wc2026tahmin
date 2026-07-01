@@ -1,0 +1,1576 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Barlow+Condensed:wght@500;600;700;800&display=swap" rel="stylesheet">
+<title>WC2026 Tahmin Yarismasi</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font:13px/1.4 'Inter',system-ui,sans-serif;background:#0a1628;color:#e8edf5}
+nav{background:#0d1a30;border-bottom:1px solid #1e3050;padding:0 8px;display:flex;align-items:center;position:sticky;top:0;z-index:10;flex-wrap:wrap}
+.logo{font:800 15px 'Barlow Condensed',sans-serif;color:#D4A843;padding:10px 10px 10px 0;margin-right:4px;letter-spacing:1px}
+.nt{padding:9px 8px;cursor:pointer;color:#7a8aaa;font-size:11px;font-weight:600;font-family:'Barlow Condensed',sans-serif;letter-spacing:.5px;border-bottom:3px solid transparent;user-select:none;white-space:nowrap;text-transform:uppercase}
+.nt.on{color:#D4A843;border-color:#D4A843;text-shadow:0 0 20px rgba(212,168,67,.3)}
+.nr{margin-left:auto}
+.bc{background:#1a7a4a;color:#fff;font-size:11px;padding:2px 7px;border-radius:4px;font-weight:600}
+.pg{display:none;padding:12px 8px;max-width:680px;margin:0 auto}
+.pg.on{display:block}
+input{background:#0a1628;border:1px solid #263a5e;color:#e8edf5;padding:8px 10px;border-radius:6px;font-size:13px;font-family:inherit;width:100%}
+input:focus{outline:none;border-color:#D4A843}
+input:disabled{opacity:.4;cursor:not-allowed}
+.sc{width:38px;padding:5px 3px;text-align:center;font-size:15px;font-weight:700;color:#D4A843}
+.sc::-webkit-inner-spin-button{-webkit-appearance:none}
+.btn{padding:8px 14px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;border:none;font-family:inherit}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.bg{background:#D4A843;color:#0a1628}
+.bg:hover{background:#e8bc55}
+.bgr{background:#1a7a4a;color:#fff}
+.bgr:hover{background:#1f9058}
+.brd{background:#7a2020;color:#fff}
+.bo{background:transparent;color:#7a8aaa;border:1px solid #263a5e}
+.bo:hover{border-color:#D4A843;color:#D4A843}
+.fw{width:100%;display:block;text-align:center}
+.mt{margin-top:8px}
+.fg{margin-bottom:10px}
+.lbl{display:block;font-size:11px;color:#7a8aaa;margin-bottom:3px;font-weight:600;text-transform:uppercase;letter-spacing:.3px}
+.card{background:#132040;border:1px solid #263a5e;border-radius:8px;padding:16px;max-width:380px;margin:1.5rem auto}
+.h2{font-size:18px;font-weight:700;color:#D4A843;margin-bottom:8px;font-family:'Barlow Condensed',sans-serif;letter-spacing:1px;text-transform:uppercase}
+.al{padding:8px 10px;border-radius:6px;font-size:12px;margin-bottom:10px;line-height:1.5}
+.ali{background:rgba(41,128,185,.15);border:1px solid rgba(41,128,185,.3);color:#60b4f0}
+.als{background:rgba(26,122,74,.15);border:1px solid rgba(26,122,74,.3);color:#4ade80}
+.tabs{display:flex;gap:3px;flex-wrap:wrap;margin-bottom:10px}
+.tp{padding:3px 10px;border-radius:12px;font-size:12px;font-weight:600;cursor:pointer;border:1px solid #263a5e;color:#7a8aaa;background:transparent;font-family:inherit}
+.tp.on{background:#D4A843;color:#0a1628;border-color:#D4A843}
+.mr{background:#132040;border:1px solid #263a5e;border-radius:8px;padding:9px 10px;margin-bottom:6px;display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center}
+.mr.sv{border-color:rgba(26,122,74,.6)}
+.mr.lk{border-color:rgba(192,57,43,.4);opacity:.8}
+.tn{font-size:12px;font-weight:600}
+.tmr{text-align:right}
+.vb{text-align:center}
+.si{display:flex;align-items:center;gap:4px;justify-content:center}
+.sep{color:#7a8aaa;font-weight:700;font-size:15px}
+.ws{display:flex;gap:3px;justify-content:center;margin-top:4px}
+.wb{padding:2px 7px;border-radius:3px;font-size:10px;font-weight:700;cursor:pointer;border:1px solid #263a5e;background:transparent;color:#7a8aaa;font-family:inherit}
+.wb:disabled{cursor:not-allowed;opacity:.5}
+.wb.wh{background:rgba(26,122,74,.3);border-color:#1a7a4a;color:#4ade80}
+.wb.wd{background:rgba(212,168,67,.2);border-color:#D4A843;color:#D4A843}
+.wb.wa{background:rgba(41,128,185,.3);border-color:#2980b9;color:#60b4f0}
+.ok{height:13px;font-size:10px;text-align:center;color:#1a7a4a;margin-top:2px}
+.lkbadge{font-size:10px;color:#c0392b;margin-top:2px;height:13px;text-align:center}
+table{width:100%;border-collapse:collapse}
+th{text-align:left;padding:6px 8px;font-size:11px;color:#7a8aaa;border-bottom:1px solid #263a5e;white-space:nowrap}
+td{padding:8px;border-bottom:1px solid #263a5e;font-size:12px}
+tr:last-child td{border:0}
+.pts{font-size:20px;font-weight:700;color:#D4A843;font-family:'Barlow Condensed',sans-serif}
+.ag{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:520px){.ag{grid-template-columns:1fr}}
+.am{background:#132040;border:1px solid #263a5e;border-radius:8px;padding:10px}
+.am.amlk{border-color:rgba(192,57,43,.5)}
+.am h4{font-size:11px;font-weight:600;margin-bottom:7px;display:flex;justify-content:space-between;align-items:center;gap:4px;flex-wrap:wrap}
+.rt{font-size:10px;padding:1px 6px;border-radius:3px;background:#1a7a4a;color:#fff;white-space:nowrap}
+.rtp{background:#263a5e;color:#7a8aaa}
+.ars{display:flex;align-items:center;gap:5px;margin-bottom:6px}
+.srow{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.abtn-row{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px}
+
+.bwrap{overflow-x:auto;padding:8px 4px 20px;margin-top:4px}
+.bracket{display:flex;gap:12px;min-width:700px;align-items:flex-start}
+.bround{display:flex;flex-direction:column;flex-shrink:0;width:160px;min-width:160px}
+.blabel{font-size:10px;font-weight:700;color:#D4A843;text-align:center;padding:5px 10px;margin-bottom:8px;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.25);border-radius:20px;letter-spacing:1.5px;text-transform:uppercase;font-family:'Barlow Condensed',sans-serif}
+.bslots{display:flex;flex-direction:column}
+.bslot{display:flex;align-items:center;box-sizing:border-box;padding:3px 0}
+.bmatch{width:100%;background:linear-gradient(160deg,#1a2a46 0%,#0d1828 100%);border-radius:10px;overflow:hidden;border:1px solid rgba(255,255,255,.07);box-shadow:0 4px 16px rgba(0,0,0,.4)}
+.bmatch.bplayed{border-color:rgba(26,122,74,.25);box-shadow:0 4px 16px rgba(0,0,0,.4),0 0 0 1px rgba(26,122,74,.15)}
+.bdate{font-size:9px;color:#5a7090;text-align:center;padding:2px 6px;background:rgba(0,0,0,.2);letter-spacing:.3px;font-family:'Inter',sans-serif;line-height:1.3}
+.bteam{display:flex;align-items:center;gap:5px;padding:4px 8px;min-height:24px;position:relative;transition:background .15s}
+.bteam:last-child{border-top:1px solid rgba(255,255,255,.05)}
+.bteam.bwin{background:rgba(74,222,128,.08)}
+.bteam.bwin::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,#4ade80,#16a34a);border-radius:0}
+.bteam.bloss{opacity:.45}
+.bteam .bflag{font-size:15px;line-height:1;flex-shrink:0}
+.bteam .bname{flex:1;font-size:11px;font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-family:'Barlow Condensed',sans-serif;letter-spacing:.3px;color:#d0d8e8}
+.bteam.bwin .bname{color:#fff}
+.bteam .bsc{font-size:16px;font-weight:700;font-family:'Barlow Condensed',sans-serif;margin-left:4px;min-width:16px;text-align:right;color:#7a8aaa}
+.bteam.bwin .bsc{color:#fff}
+.bteam .bet{font-size:8px;color:#D4A843;margin-left:2px;vertical-align:super;font-weight:700}
+.bempty{background:rgba(255,255,255,.02);border:1px dashed rgba(255,255,255,.08);border-radius:10px;width:100%;height:70px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.12);font-size:22px;font-weight:300}
+.bconn{flex-shrink:0;width:14px;display:flex;flex-direction:column}
+.bconn-label{height:26px;flex-shrink:0}
+</style>
+</head>
+<body>
+<nav>
+  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAIB0lEQVR42q2ZWWxU1xnHf+fcO6tn7MEL2MbgwYYGTDCpZcKapS0Sjaq4pFGl9KEQtZBIRWp5qBqp9Cnkoaq6JFGlqlLfWrUvrYqUjT4UsZWaEkjMagzGYIyNjW1mPPbsc08ffK65Hs2MPRZHOrozd+79vv/5vv+3nDOw8BD6+k3gE2ACsABV5rT0u58Cr+TJXtIQgNTXD5YAaKH5QZ6Osoehrx9qgVkgV8h6QqAMQypDCmVIqUzTUFKIYlbMaVlKy3bqKhvcC1pQuphbhShuJSlFKXen9ecXSoE0FwD6FpDRq7bdIec4IEAp8Hq9vLZnCy/u/Coul4ebdyP89e/HefDgPlIKLEsVoo/QAH8EnFkoAPLvKQ1+BKgt+KJ+s7rSx9G3n+f59kYqQjXUNIXJJjMkjDBv/uS3nDl3ASkllmXli7D0Ym8BGxxGUIVcWQi0CSSAc8DHwAkgDoQAvxBCCARH3nyOne2VDI1EcPsrMXzVDN28yMzYFb61Zyufnb5JLDaDkAKlCurKAH/QLhfFuFZo5IDzwGlgEPgB8HWgWgohlVK0NVdxoGs1jyLTxCMZBgfHeHC3n8RMitHhh7Q0+fBWruDEuRtIKVHzESoNaNiRJUQ5HLS5thM4DvjzSdDW7KO57VmGhyY403OenvtZ1jT6SMZT1IZcdJhVbN/oIbzcz92xOEIIJ0hLS7qgjWHq6C4IohgPq4C/aXCZ/EdqK01Wtb1E4zPb6RuKcnswSv0yD5msRcBnEKxuwpge5eUtzbPKxDzr2Xp+n3dvURY09GreBlZqcK65pVsKt9sk5DXoOX0cw+Uh5DHY1V5JZchPcCKJYbgZ7DmHlUkxmZQ2HOUAYgK/Abq1vlw5AO2H92qBMj+CM5kcsbTBjQsXCFT6+fYbr2KR5cqly6wNh7hyeYT61atZGQ5z6frnsyay5tJLFvglcCRPH4txse1eH9DkyH8OgLNc+vJOFI+/gnTOZHpqgnjWRCCQhkk4XE0sOkX/nQcMjUzM4lNqUvP5expgA7C8VKkzF6gmBX+3id57P0YsmSPcVMlA300mExJpGEjTw6qwj9a1a/jzx1dnVyglOcvyAJs074I6UMaAdmCmUB40l9RGaBGJtGJ8Msn9wTvs2NbCWo+LkeEJBseiRG8nCdQ0c/zsLU08JYAKPZ0jWcqCcqn4hIB4MoNpCtLxJONRRevG9SyrrmJ0NMLy2gDDww/oHZiYCyzH68pR27MsIteV34uJ2cowNJGiZVUV3f+5zkBvHy63JJnM0t7eysPobGYypChUh51zyQCzxabQ18sDsWxNdcByyyxTj6OMjkYYGpsmUFmlrvePzz4vRLaUrKUCFECd5qlLX+dmzlKmEJhne0bMWxM5+ZV19RhScv7LUYR0MTT0UJz+X78JmJalzPz3HTLryo1i5SDvj3UVsV0xo+8rALcpZSpj5UZGY99v29q4+9Fkwvqid5LOZ0Iyk0r0DI3N/E6CsJ7UNwF4daDYXIxrmQWrSakozgB/zLtXB3TqFkxYOr1GHke4NyA53zuj0qm0aF1VRffVRxFAGS4prYxlB8Q48DnwaLFcXyjNuHUbtA74NfCq0x05bZj+h0laGtL0DkSMlhV++oZifPrF+EvAS7msKuShj4Cf6l7Q1lE2B6V+sV23XF0aXC6f5Aqs3nszBH0GXrekcUWAVCan9G/OZ+2mtEvLbNc6ZLkA7YweAP4B1Du6GbvCmIpZ8g9PJGU6lSPkl8ykYdPGJhrqKgRgCjEvMAwHfeq17ECxXnAx3cwBYG1+N5M/GipctFS78Qb9vLhrDRvaVlMbvDpva5DnYlNbbi3wQ92wltUP2huI7xbqZp7UZDANQVVjgEiVj/CuDQykBSdu3Gdd2woMU6Isim2Y3Pr7G3k6F7Sg0A97geZi2d7e0RlBH/3LarmeNukblKhpSf+9u6zZ1IKoCZAbnbK7HzulRLRe27XVgAdIldssuBy/F+SHz+3iF69tYGt7mOmkpMJvEp0SuNc/R1VtFZeMlzny4Wck0nOeSwFXgT8B/9Igc44oLisPqtJ1WOEP+Tn7OMVH/75Lzutm48ZnSUQsBvquUOH2srKxBiPoQ41PIYQQSqlqYA/wDeBXjob16TYLdmFoqPcyaSgsMYWRGsNtRAnVgcw9JuuKE/NkWN9WrVercHQxEvi5zq0ld5digRRzG1hRKA0IIWhpCFAbdJPNZnG7DIRQensJ6ayFz+chGs/Sc2u8kHfsndwO4L+l9iXFQAeAh3m925KmKHyQlNFy/1KKbmV31PYxxubNm3nr4EFMl8mpU6dobW3l2LFj7N+/n2AwyMmTJ0mlUmzbuo2fvfNOMXoJYIsj74pS3F+UBU3TVIDat2+fUkqpQ4cOqd27d6t4PK66urqUZVnq6Lvvqo6ODtXd3a2UUqqtrU2fdklVoKMe0boKUq5UkCSAqWIRPT09zdTUFLW1tVy7do1oNEoikSAWi7Fq9WoaGhqwrBzHjv2TgwcOzFm/QJaIaV2LjmLlIOxFx2rnjUAgQCqV4r33juL3+6moqMDtduNyuTh8+DB79+7F768ABN95/XU8Hg+5XA7xpPbZFryodRmLce+CB5g24evq6lRHR4cClNfrVZ2dnSoUCqktnZ3KNE3V0dGhQqGQAtSO7duVx+NZ0gHmUzkCLiOCix0BLykfOw+43y+k2El6KeW8e/Z3QBmGUQj8+1r+riXvz/Mi65Wn8DfEuJZh/w3hBb5W6qT//2I5s1hnh0nVAAAAAElFTkSuQmCC" style="height:36px;width:36px;object-fit:contain;margin-right:8px;padding:2px 0">
+  <span class="nt on" id="n0" onclick="go(0)">Giris</span>
+  <span class="nt" id="n1" onclick="go(1)">Tahminler</span>
+  <span class="nt" id="n2" onclick="go(2)">Herkes</span>
+  <span class="nt" id="n3" onclick="go(3)">Fikstur</span>
+  <span class="nt" id="n4" onclick="go(4)">Eleme</span>
+  <span class="nt" id="n5" onclick="go(5)">Gol/Asist</span>
+  <span class="nt" id="n6" onclick="go(6)">Kurallar</span>
+  <span class="nt" id="n7" onclick="go(7)">Siralama</span>
+  <span class="nt" id="n8" onclick="go(8)">Admin</span>
+  <span class="nr"><span class="bc" id="ub" style="display:none"></span></span>
+</nav>
+
+<!-- p0 GIRIS -->
+<div class="pg on" id="p0">
+  <div class="card">
+    <div class="h2">2026 FIFA DUNYA KUPASI</div>
+    <p style="color:#7a8aaa;font-size:12px;margin-bottom:14px">Tahmin Yarismas&#305; &mdash; Grup Asamas&#305;</p>
+    <div id="rfrm">
+      <div class="fg"><label class="lbl">Ad&#305;n</label><input id="rn" placeholder="&#246;rn. &#214;zg&#252;n" maxlength="28" type="text"/></div>
+      <div class="fg">
+        <label class="lbl">Yar&#305;&#351;ma Kodu</label>
+        <input id="rc" placeholder="OFIS / WAGRUP1 ..." maxlength="20" type="text" style="text-transform:uppercase"/>
+        <p style="font-size:11px;color:#7a8aaa;margin-top:4px">Her grup farkl&#305; kod kullan&#305;r &rarr; ayr&#305; s&#305;ralama. Ad&#305;n&#305; her seferinde ayn&#305; yaz!</p>
+      </div>
+      <button class="btn bg fw" id="regbtn" onclick="doReg()">Yar&#305;&#351;maya Kat&#305;l &rarr;</button>
+    </div>
+    <div id="rret" style="display:none">
+      <div class="al als" id="wm"></div>
+      <button class="btn bg fw" onclick="go(1)">Tahminlerime Git &rarr;</button>
+      <button class="btn bo fw mt" onclick="doSw()">Farkl&#305; kullan&#305;c&#305; / kod de&#287;i&#351;tir</button>
+    </div>
+    <div style="margin-top:14px;padding-top:12px;border-top:1px solid #263a5e;font-size:11px;color:#7a8aaa;line-height:2">
+      <b style="color:#D4A843">+5 puan</b> &mdash; Tam skor<br>
+      <b style="color:#D4A843">+3 puan</b> &mdash; Do&#287;ru sonu&#231; (kazanan veya beraberlik)<br>
+      <b style="color:#D4A843">+15/10/5/3 puan</b> &mdash; &#11088; &#214;zel tahminler
+    </div>
+  </div>
+</div>
+
+<!-- p1 TAHMINLER -->
+<div class="pg" id="p1">
+  <div class="srow">
+    <span class="h2" style="margin:0">TAHMINLERIM</span>
+    <span id="pc" style="font-size:11px;color:#7a8aaa"></span>
+  </div>
+  <div class="al ali">Sonucu se&#231;: <b>Ev / Beraberlik / Dep</b>. Se&#231;imle otomatik kaydedilir. Kilit olan ma&#231;larda de&#287;i&#351;tiremezsin.</div>
+  <div style="display:flex;gap:6px;margin-bottom:10px;border-bottom:1px solid #263a5e;padding-bottom:8px">
+    <button id="ptab_g" class="btn bg" style="font-size:12px;padding:5px 14px" onclick="switchPTab('g')">Grup Asamas&#305;</button>
+    <button id="ptab_ko" class="btn bo" style="font-size:12px;padding:5px 14px" onclick="switchPTab('ko')">Eleme Turu &#9654;</button>
+  </div>
+  <div id="pred_g">
+    <div class="tabs" id="gtabs"></div>
+    <div id="mc"></div>
+  </div>
+  <div id="pred_ko" style="display:none">
+    <div style="display:flex;gap:6px;margin-bottom:12px">
+      <button id="kotab_pred" class="btn bg" style="font-size:12px;padding:5px 14px" onclick="switchKOView('pred')">&#127942; Tahmin Yap</button>
+      <button id="kotab_tree" class="btn bo" style="font-size:12px;padding:5px 14px" onclick="switchKOView('tree')">&#127823; Eleme A&#287;ac&#305;</button>
+    </div>
+    <div id="koview_pred"><div id="komc"><p style="padding:20px;text-align:center;color:#7a8aaa">Yukleniyor...</p></div></div>
+    <div id="koview_tree" style="display:none"><div id="bracket_container"><p style="padding:20px;text-align:center;color:#7a8aaa">Yukleniyor...</p></div></div>
+  </div>
+</div>
+
+<!-- p2 SIRALAMA -->
+<div class="pg" id="p2">
+  <div class="srow">
+    <span class="h2" style="margin:0">HERKESIN TAHMINLERI</span>
+    <span id="allinfo" style="font-size:11px;color:#7a8aaa"></span>
+  </div>
+  <div style="display:flex;gap:6px;margin-bottom:10px;border-bottom:1px solid #263a5e;padding-bottom:8px">
+    <button id="htab_g" class="btn bg" style="font-size:12px;padding:5px 14px" onclick="switchHTab('g')">Grup Asamas&#305;</button>
+    <button id="htab_ko" class="btn bo" style="font-size:12px;padding:5px 14px" onclick="switchHTab('ko')">Eleme Turu &#9654;</button>
+  </div>
+  <div id="herkes_g"><div id="allc"><p style="padding:20px;text-align:center;color:#7a8aaa">Yukleniyor...</p></div></div>
+  <div id="herkes_ko" style="display:none"><div id="allc_ko"><p style="padding:20px;text-align:center;color:#7a8aaa">Yukleniyor...</p></div></div>
+</div>
+
+<!-- p3 FIKSTUR -->
+<div class="pg" id="p3">
+  <div class="srow">
+    <span class="h2" style="margin:0">FIKSTUR &amp; SONUCLAR</span>
+    <span style="font-size:11px;color:#7a8aaa">Saatler yerel saat dilimine goredir</span>
+  </div>
+  <div style="display:flex;gap:6px;margin-bottom:10px;border-bottom:1px solid #263a5e;padding-bottom:8px">
+    <button id="ftab_g" class="btn bg" style="font-size:12px;padding:5px 14px" onclick="switchFTab('g')">Grup Asamas&#305;</button>
+    <button id="ftab_ko" class="btn bo" style="font-size:12px;padding:5px 14px" onclick="switchFTab('ko')">Son 32 &#9654;</button>
+  </div>
+  <div id="fix_g"><div id="fixc"><p style="padding:20px;text-align:center;color:#7a8aaa">Yukleniyor...</p></div></div>
+  <div id="fix_ko" style="display:none"><div id="fixc_ko"><p style="padding:20px;text-align:center;color:#7a8aaa">Yukleniyor...</p></div></div>
+</div>
+
+<!-- p5 OZEL -->
+<div class="pg" id="p4">
+  <div class="srow" style="margin-bottom:8px">
+    <span class="h2" style="margin:0">ELEME AGACI</span>
+    <span style="font-size:11px;color:#7a8aaa" id="elemeinfo2"></span>
+  </div>
+  <div id="elemec2"><p style="padding:20px;text-align:center;color:#7a8aaa">Yukleniyor...</p></div>
+</div>
+
+<div class="pg" id="p5">
+  <div class="srow" style="margin-bottom:8px">
+    <span class="h2" style="margin:0">&#11088; GOL/ASİST KRALLIĞI</span>
+  </div>
+  <div class="al ali" style="margin-bottom:14px">Bu tahminler turnuva <b>sonunda</b> degerlendirilir. Ismi yazarken buyuk/kucuk harf ve Turkce karakter fark etmez.</div>
+  <div id="specform"><p style="padding:20px;text-align:center;color:#7a8aaa">Yukleniyor...</p></div>
+</div>
+
+<!-- p6 KURALLAR -->
+<div class="pg" id="p6">
+  <div class="h2">KURALLAR</div>
+
+  <div style="background:#132040;border:1px solid #263a5e;border-radius:8px;padding:16px;margin-bottom:12px">
+    <div style="font-size:14px;font-weight:700;color:#D4A843;margin-bottom:12px">&#9917; Nasil Oynanir?</div>
+    <ol style="color:#e8edf5;padding-left:18px;line-height:2.2;font-size:13px">
+      <li>Istersen skoru gir (orn. <b style="color:#D4A843">2 - 1</b>)</li>
+      <li><b style="color:#f87171">Mutlaka</b> sonuc butonuna bas: <b style="color:#4ade80">Ev Sahibi</b> / <b style="color:#D4A843">Beraberlik</b> / <b style="color:#60b4f0">Deplasman</b></li>
+      <li>Kutunun kenari yesile donunce tahmin kaydedilmistir</li>
+    </ol>
+    <div style="margin-top:12px;padding:10px;background:rgba(192,57,43,.15);border:1px solid rgba(192,57,43,.4);border-radius:6px;font-size:12px;color:#f87171">
+      &#9888; Sadece skor yazmak yetmez &mdash; Ev/Beraberlik/Deplasman butonuna basmadan tahmin kaydedilmez!
+    </div>
+  </div>
+
+  <div style="background:#132040;border:1px solid #263a5e;border-radius:8px;padding:16px;margin-bottom:12px">
+    <div style="font-size:14px;font-weight:700;color:#D4A843;margin-bottom:4px">&#127942; Grup Asamas&#305; Puan Sistemi</div>
+    <div style="font-size:11px;color:#7a8aaa;margin-bottom:10px">A'dan L'ye 12 grup, 72 mac</div>
+    <table style="width:100%;border-collapse:collapse">
+      <tr style="border-bottom:1px solid #263a5e">
+        <td style="padding:9px 8px;font-size:13px;font-weight:700;color:#D4A843">+5 puan</td>
+        <td style="padding:9px 8px;font-size:13px;color:#e8edf5">Tam skor &mdash; skoru birebir bilmek</td>
+        <td style="padding:9px 8px;font-size:12px;color:#7a8aaa">orn. 2-1 tahmin, 2-1 bitti</td>
+      </tr>
+      <tr>
+        <td style="padding:9px 8px;font-size:13px;font-weight:700;color:#D4A843">+3 puan</td>
+        <td style="padding:9px 8px;font-size:13px;color:#e8edf5">Dogru sonuc &mdash; kazanani veya beraberligi bilmek</td>
+        <td style="padding:9px 8px;font-size:12px;color:#7a8aaa">orn. Ev sahibi kazanir dedin, o da kazandi</td>
+      </tr>
+    </table>
+  </div>
+
+  <div style="background:#132040;border:1px solid #263a5e;border-radius:8px;padding:16px;margin-bottom:12px">
+    <div style="font-size:14px;font-weight:700;color:#D4A843;margin-bottom:4px">&#9654; Eleme Turu Puan Sistemi</div>
+    <div style="font-size:11px;color:#7a8aaa;margin-bottom:10px">Son 32'den itibaren gecerlidir &mdash; puanlar grup asamas&#305;ndan farkl&#305;d&#305;r!</div>
+    <table style="width:100%;border-collapse:collapse">
+      <tr style="border-bottom:1px solid #263a5e">
+        <td style="padding:9px 8px;font-size:13px;font-weight:700;color:#D4A843">+3 puan</td>
+        <td style="padding:9px 8px;font-size:13px;color:#e8edf5">90 dk kazanani dogru bilmek</td>
+        <td style="padding:9px 8px;font-size:12px;color:#7a8aaa">orn. Hollanda kazanir dedin, 2-1 kazandi</td>
+      </tr>
+      <tr style="border-bottom:1px solid #263a5e">
+        <td style="padding:9px 8px;font-size:13px;font-weight:700;color:#D4A843">+5 puan</td>
+        <td style="padding:9px 8px;font-size:13px;color:#e8edf5">90 dk tam skor</td>
+        <td style="padding:9px 8px;font-size:12px;color:#7a8aaa">orn. 2-1 tahmin, 2-1 bitti</td>
+      </tr>
+      <tr style="border-bottom:1px solid #263a5e">
+        <td style="padding:9px 8px;font-size:13px;font-weight:700;color:#D4A843">+6 puan</td>
+        <td style="padding:9px 8px;font-size:13px;color:#e8edf5">90 dk beraberlik dogru (&rarr; uzatmaya gidiyor)</td>
+        <td style="padding:9px 8px;font-size:12px;color:#7a8aaa">orn. Uzatma dedin, 1-1 bitti uzatmaya gitti</td>
+      </tr>
+      <tr style="border-bottom:1px solid #263a5e">
+        <td style="padding:9px 8px;font-size:13px;font-weight:700;color:#D4A843">+8 puan</td>
+        <td style="padding:9px 8px;font-size:13px;color:#e8edf5">90 dk beraberlik + tam skor</td>
+        <td style="padding:9px 8px;font-size:12px;color:#7a8aaa">orn. 1-1 tahmin, 1-1 bitti uzatmaya gitti</td>
+      </tr>
+      <tr>
+        <td style="padding:9px 8px;font-size:13px;font-weight:700;color:#a78bfa">+2 puan</td>
+        <td style="padding:9px 8px;font-size:13px;color:#e8edf5">Turu kim ge&#231;er? &mdash; do&#287;ru tahmin (ayr&#305;ca, her durumda)</td>
+        <td style="padding:9px 8px;font-size:12px;color:#7a8aaa">orn. Brezilya 2-1 + turu Brezilya &rarr; 5+2=7 puan</td>
+      </tr>
+    </table>
+    <div style="margin-top:10px;padding:8px;background:rgba(167,139,250,.08);border:1px solid rgba(167,139,250,.2);border-radius:6px;font-size:11px;color:#7a8aaa;line-height:1.8">
+      Puanlama 90 dakika uzerindendir.<br>
+      <b style="color:#a78bfa">Turu Kim Ge&#231;er?</b> tahmini 90 dk sonucundan <b>bag&#305;ms&#305;z</b> ek +2 puan.<br>
+      Uzatmaya giden mac&#807;larda penalt&#305; / uzatma sonucuna bak&#305;l&#305;r.<br>
+      Maksimum tek mac&#807;tan: 8+2 = <b style="color:#D4A843">10 puan</b>
+    </div>
+  </div>
+
+  <div style="background:#132040;border:1px solid #263a5e;border-radius:8px;padding:16px;margin-bottom:12px">
+    <div style="font-size:14px;font-weight:700;color:#D4A843;margin-bottom:10px">&#11088; Ozel Tahminler &mdash; Gol &amp; Asist Krali</div>
+    <p style="color:#e8edf5;font-size:13px;margin-bottom:12px;line-height:1.6">Turnuva sonunda en cok gol atan ve en cok asist yapan <b>ilk iki oyuncuyu</b> onceden tahmin edin. Puanlama her kategori icin ayri ayri uygulanir.</p>
+    <table style="width:100%;border-collapse:collapse;margin-bottom:14px">
+      <tr style="border-bottom:1px solid #263a5e">
+        <td style="padding:9px 8px;font-size:13px;font-weight:700;color:#D4A843;white-space:nowrap">+15 puan</td>
+        <td style="padding:9px 8px;font-size:12px;color:#e8edf5">1. ve 2. tam dogru sirayla</td>
+        <td style="padding:9px 8px;font-size:11px;color:#7a8aaa">1.Haaland 2.Mbappe &rarr; 1.Haaland 2.Mbappe</td>
+      </tr>
+      <tr style="border-bottom:1px solid #263a5e">
+        <td style="padding:9px 8px;font-size:13px;font-weight:700;color:#D4A843">+10 puan</td>
+        <td style="padding:9px 8px;font-size:12px;color:#e8edf5">Ikisini de biliyor ama siralama ters</td>
+        <td style="padding:9px 8px;font-size:11px;color:#7a8aaa">1.Mbappe 2.Haaland &rarr; 1.Haaland 2.Mbappe</td>
+      </tr>
+      <tr style="border-bottom:1px solid #263a5e">
+        <td style="padding:9px 8px;font-size:13px;font-weight:700;color:#D4A843">+5 puan</td>
+        <td style="padding:9px 8px;font-size:12px;color:#e8edf5">Sadece 1. oyuncuyu dogru biliyor</td>
+        <td style="padding:9px 8px;font-size:11px;color:#7a8aaa">1.Haaland 2.Kane &rarr; 1.Haaland 2.Mbappe</td>
+      </tr>
+      <tr>
+        <td style="padding:9px 8px;font-size:13px;font-weight:700;color:#D4A843">+3 puan</td>
+        <td style="padding:9px 8px;font-size:12px;color:#e8edf5">Sadece 2. oyuncuyu dogru biliyor</td>
+        <td style="padding:9px 8px;font-size:11px;color:#7a8aaa">1.Kane 2.Mbappe &rarr; 1.Haaland 2.Mbappe</td>
+      </tr>
+    </table>
+    <div style="font-size:11px;color:#7a8aaa;line-height:1.8">Hicbiri dogru degilse <b>0 puan</b>.<br>Maksimum: Gol 15 + Asist 15 = <b style="color:#D4A843">30 puan</b></div>
+  </div>
+
+  <div style="background:#132040;border:1px solid #263a5e;border-radius:8px;padding:16px">
+    <div style="font-size:14px;font-weight:700;color:#D4A843;margin-bottom:12px">&#128274; Mac Kilitleme</div>
+    <p style="color:#e8edf5;font-size:13px;line-height:1.7">Admin, mac baslamadan once o maci kilitler. Kilitli maclarda tahmin degistirilemez. Siralama sekmesinde <b style="color:#7a8aaa">Tahmin</b> sutunu kac mac icin tahmin girdigini gosterir (toplam 72 mac).</p>
+  </div>
+</div>
+
+<!-- p8 ADMIN -->
+<div class="pg" id="p7">
+  <div class="srow">
+    <span class="h2" style="margin:0">SIRALAMA</span>
+    <span id="lbu" style="font-size:11px;color:#7a8aaa"></span>
+  </div>
+  <div id="lbc"></div>
+</div>
+
+<!-- p3 HERKES -->
+<div class="pg" id="p8">
+  <div class="h2">ADMIN PANELI</div>
+  <div id="admlk">
+    <div class="fg" style="max-width:280px">
+      <label class="lbl">Admin Kodu</label>
+      <input id="admk" placeholder="Kodu gir..." type="password"/>
+    </div>
+    <button class="btn bg" onclick="ck()">Giris</button>
+  </div>
+  <div id="admcnt" style="display:none">
+    <div class="al ali" style="margin-bottom:12px">
+      <b>1. Kilitle:</b> Mac baslamadan once bas &rarr; tahmin degistirilemez.<br>
+      <b>2. Sonucu Kaydet:</b> Mac bittikten sonra skoru girip butona bas &rarr; puanlar hesaplanir.<br>
+      <span style="color:#f87171">Not: Sadece kilitlemek yetmez, skoru da kaydetmek gerekir!</span>
+    </div>
+    <div style="display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap">
+      <button class="btn bg" onclick="lockAll()" style="font-size:12px">&#128274; Tum Maclari Kilitle</button>
+      <button class="btn bo" onclick="unlockAll()" style="font-size:12px;border-color:#c0392b;color:#c0392b">&#128275; Tum Kilitleri Ac</button>
+    </div>
+    <!-- OZEL TAHMIN ADMIN -->
+    <div style="background:#0a1628;border:1px solid #263a5e;border-radius:8px;padding:12px;margin-bottom:14px">
+      <div style="font-size:12px;font-weight:700;color:#D4A843;margin-bottom:10px">&#11088; Ozel Tahmin Sonuclari &amp; Kontrol</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+        <div><label class="lbl">Gol Krali 1.</label><input id="asg1" type="text" placeholder="Oyuncu adi"/></div>
+        <div><label class="lbl">Gol Krali 2.</label><input id="asg2" type="text" placeholder="Oyuncu adi"/></div>
+        <div><label class="lbl">Asist Krali 1.</label><input id="asa1" type="text" placeholder="Oyuncu adi"/></div>
+        <div><label class="lbl">Asist Krali 2.</label><input id="asa2" type="text" placeholder="Oyuncu adi"/></div>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-bottom:12px">
+        <button class="btn bgr" style="font-size:12px" onclick="saveAdminSpecial()">&#10003; Sonuclari Kaydet</button>
+        <button class="btn bo" id="spLockBtn" style="font-size:12px" onclick="toggleSpecialLock()">&#128274; Tahminleri Kilitle</button>
+        <span id="admspst" style="font-size:11px;color:#4ade80"></span>
+      </div>
+      <div id="admSpPreds" style="font-size:11px;color:#7a8aaa">Katilimci tahminleri yukleniyor...</div>
+    </div>
+    <!-- KO MACLAR -->
+    <div style="background:#0a1628;border:1px solid #263a5e;border-radius:8px;padding:12px;margin-bottom:14px">
+      <div style="font-size:12px;font-weight:700;color:#D4A843;margin-bottom:10px">&#9654; Eleme Turu Mac Ekle</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px">
+        <div><label class="lbl">Ev Sahibi</label><input id="koh" type="text" placeholder="orn. Meksika"/></div>
+        <div><label class="lbl">Deplasman</label><input id="koa" type="text" placeholder="orn. Kanada"/></div>
+        <div><label class="lbl">Tarih</label><input id="kod" type="text" placeholder="orn. 29 Haz Per"/></div>
+        <div><label class="lbl">Saat</label><input id="kot" type="text" placeholder="orn. 22:00"/></div>
+      </div>
+      <div style="margin-bottom:8px"><label class="lbl">Tur</label>
+        <select id="koround" style="background:#0a1628;border:1px solid #263a5e;color:#e8edf5;padding:7px 10px;border-radius:6px;font-size:13px;font-family:inherit;width:100%">
+          <option value="Son 32">Son 32</option>
+          <option value="Son 16">Son 16</option>
+          <option value="Ceyrek Final">Ceyrek Final</option>
+          <option value="Yari Final">Yari Final</option>
+          <option value="Final">Final</option>
+          <option value="3. luk">3. luk</option>
+        </select>
+      </div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <button class="btn bgr" style="font-size:12px" onclick="addKOMatch()">+ Mac Ekle</button>
+        <span id="kost" style="font-size:11px;color:#4ade80"></span>
+      </div>
+      <div id="koMatchList" style="margin-top:10px"></div>
+    </div>
+    <!-- BONUS -->
+    <div style="background:#0a1628;border:1px solid #263a5e;border-radius:8px;padding:12px;margin-bottom:14px">
+      <div style="font-size:12px;font-weight:700;color:#D4A843;margin-bottom:10px">&#127381; Manuel Puan Ekle</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:flex-end">
+        <div style="flex:1;min-width:120px"><label class="lbl">Kullanici Adi</label><input id="bonusUser" type="text" placeholder="Tam adi yaz"/></div>
+        <div style="width:80px"><label class="lbl">Puan</label><input id="bonusPts" type="number" placeholder="30"/></div>
+        <button class="btn bgr" style="font-size:12px" onclick="saveBonus()">Kaydet</button>
+        <span id="bonusSt" style="font-size:11px;color:#4ade80"></span>
+      </div>
+      <p style="font-size:11px;color:#7a8aaa;margin-top:6px">0 yazarsan bonusu silersin. Kullanici adi siralamada gorunduugu gibi tam yazilmali.</p>
+    </div>
+    <div class="tabs" id="atabs"></div>
+    <div id="amc"></div>
+  </div>
+</div>
+
+<script>
+var DB='https://wc-2026-tahmin-default-rtdb.europe-west1.firebasedatabase.app';
+function fbGet(p){return fetch(DB+p+'.json').then(function(r){if(!r.ok){console.error('GET fail',p,r.status);return null;}return r.json();}).then(function(d){return d||null;}).catch(function(e){console.error('GET err',p,e);return null;});}
+function fbSet(p,d){return fetch(DB+p+'.json',{method:'PUT',headers:{'Content-Type':'application/json'},body:JSON.stringify(d)}).then(function(r){if(!r.ok)console.error('SET fail',p,r.status);}).catch(function(e){console.error('SET err',p,e);});}
+function fbDel(p){return fetch(DB+p+'.json',{method:'DELETE'}).catch(function(){});}
+function fkey(s){if(!s)return'_';return String(s).replace(/[.#$\[\]/]/g,'_');}
+function el(id){return document.getElementById(id);}
+function ow(h,a){return h>a?'H':h<a?'A':'D';}
+</script>
+<script>
+var GD={
+A:[['Meksika','MX'],['G.Afrika','ZA'],['G.Kore','KR'],['Cekya','CZ']],
+B:[['Kanada','CA'],['Bosna H.','BA'],['Katar','QA'],['Isvicre','CH']],
+C:[['Brezilya','BR'],['Fas','MA'],['Haiti','HT'],['Iskocya','SCO']],
+D:[['ABD','US'],['Paraguay','PY'],['Avustralya','AU'],['Turkiye','TR']],
+E:[['Almanya','DE'],['Curacao','CW'],['Fildisi S.','CI'],['Ekvador','EC']],
+F:[['Hollanda','NL'],['Japonya','JP'],['Isvec','SE'],['Tunus','TN']],
+G:[['Belcika','BE'],['Misir','EG'],['Iran','IR'],['Y.Zelanda','NZ']],
+H:[['Ispanya','ES'],['Y.Burun A.','CV'],['S.Arabistan','SA'],['Uruguay','UY']],
+I:[['Fransa','FR'],['Senegal','SN'],['Irak','IQ'],['Norvec','NO']],
+J:[['Arjantin','AR'],['Cezayir','DZ'],['Avusturya','AT'],['Urdun','JO']],
+K:[['Portekiz','PT'],['Kongo DR','CD'],['Ozbekistan','UZ'],['Kolombiya','CO']],
+L:[['Ingiltere','GB'],['Hirvatistan','HR'],['Gana','GH'],['Panama','PA']]
+};
+var GL=Object.keys(GD);
+var PP=[[0,1],[2,3],[0,2],[1,3],[0,3],[1,2]];
+var AK='ADMIN2026';
+var FX={
+'A0':{d:'11 Haz Per',t:'22:00'},'A1':{d:'12 Haz Cum',t:'05:00'},'A2':{d:'19 Haz Cum',t:'04:00'},'A3':{d:'18 Haz Per',t:'19:00'},'A4':{d:'25 Haz Per',t:'04:00'},'A5':{d:'25 Haz Per',t:'04:00'},
+'B0':{d:'12 Haz Cum',t:'22:00'},'B1':{d:'13 Haz Cmt',t:'22:00'},'B2':{d:'19 Haz Cum',t:'01:00'},'B3':{d:'18 Haz Per',t:'22:00'},'B4':{d:'24 Haz Car',t:'22:00'},'B5':{d:'24 Haz Car',t:'22:00'},
+'C0':{d:'14 Haz Paz',t:'01:00'},'C1':{d:'14 Haz Paz',t:'04:00'},'C2':{d:'20 Haz Cmt',t:'03:30'},'C3':{d:'20 Haz Cmt',t:'01:00'},'C4':{d:'25 Haz Per',t:'01:00'},'C5':{d:'25 Haz Per',t:'01:00'},
+'D0':{d:'13 Haz Cmt',t:'04:00'},'D1':{d:'14 Haz Paz',t:'07:00'},'D2':{d:'19 Haz Cum',t:'22:00'},'D3':{d:'20 Haz Cmt',t:'06:00'},'D4':{d:'26 Haz Cum',t:'05:00'},'D5':{d:'26 Haz Cum',t:'05:00'},
+'E0':{d:'14 Haz Paz',t:'20:00'},'E1':{d:'15 Haz Pzt',t:'02:00'},'E2':{d:'20 Haz Cmt',t:'23:00'},'E3':{d:'21 Haz Paz',t:'03:00'},'E4':{d:'25 Haz Per',t:'23:00'},'E5':{d:'25 Haz Per',t:'23:00'},
+'F0':{d:'14 Haz Paz',t:'23:00'},'F1':{d:'15 Haz Pzt',t:'05:00'},'F2':{d:'20 Haz Cmt',t:'20:00'},'F3':{d:'21 Haz Paz',t:'07:00'},'F4':{d:'26 Haz Cum',t:'02:00'},'F5':{d:'26 Haz Cum',t:'02:00'},
+'G0':{d:'15 Haz Pzt',t:'22:00'},'G1':{d:'16 Haz Sal',t:'04:00'},'G2':{d:'21 Haz Paz',t:'22:00'},'G3':{d:'22 Haz Pzt',t:'04:00'},'G4':{d:'27 Haz Cmt',t:'06:00'},'G5':{d:'27 Haz Cmt',t:'06:00'},
+'H0':{d:'15 Haz Pzt',t:'19:00'},'H1':{d:'16 Haz Sal',t:'01:00'},'H2':{d:'21 Haz Paz',t:'19:00'},'H3':{d:'22 Haz Pzt',t:'01:00'},'H4':{d:'27 Haz Cmt',t:'03:00'},'H5':{d:'27 Haz Cmt',t:'03:00'},
+'I0':{d:'16 Haz Sal',t:'22:00'},'I1':{d:'17 Haz Car',t:'01:00'},'I2':{d:'23 Haz Sal',t:'00:00'},'I3':{d:'23 Haz Sal',t:'03:00'},'I4':{d:'26 Haz Cum',t:'22:00'},'I5':{d:'26 Haz Cum',t:'22:00'},
+'J0':{d:'17 Haz Car',t:'04:00'},'J1':{d:'17 Haz Car',t:'07:00'},'J2':{d:'22 Haz Pzt',t:'20:00'},'J3':{d:'23 Haz Sal',t:'06:00'},'J4':{d:'28 Haz Paz',t:'05:00'},'J5':{d:'28 Haz Paz',t:'05:00'},
+'K0':{d:'17 Haz Car',t:'20:00'},'K1':{d:'18 Haz Per',t:'05:00'},'K2':{d:'23 Haz Sal',t:'20:00'},'K3':{d:'24 Haz Car',t:'05:00'},'K4':{d:'28 Haz Paz',t:'02:30'},'K5':{d:'28 Haz Paz',t:'02:30'},
+'L0':{d:'17 Haz Car',t:'23:00'},'L1':{d:'18 Haz Per',t:'02:00'},'L2':{d:'23 Haz Sal',t:'23:00'},'L3':{d:'24 Haz Car',t:'02:00'},'L4':{d:'28 Haz Paz',t:'00:00'},'L5':{d:'28 Haz Paz',t:'00:00'}
+};
+var DAYS=['11 Haz Per','12 Haz Cum','13 Haz Cmt','14 Haz Paz','15 Haz Pzt','16 Haz Sal','17 Haz Car','18 Haz Per','19 Haz Cum','20 Haz Cmt','21 Haz Paz','22 Haz Pzt','23 Haz Sal','24 Haz Car','25 Haz Per','26 Haz Cum','27 Haz Cmt','28 Haz Paz'];
+
+var cu=null,cc=null,myPR={},RE={},LK={},US={},ag='A',aag='A',aok=false;
+var mySpecial={},SP={},SPL=false;
+
+function gm(g){return PP.map(function(p,i){return{id:g+i,h:GD[g][p[0]][0],hc:GD[g][p[0]][1],a:GD[g][p[1]][0],ac:GD[g][p[1]][1]};});}
+
+async function ld(){
+  RE=await fbGet('/wc_r')||{};
+  LK=await fbGet('/wc_locked')||{};
+  SP=await fbGet('/wc_special')||{};
+  SPL=await fbGet('/wc_special_locked')===true;
+  var s=sessionStorage.getItem('wc_s');
+  if(s){
+    try{var o=JSON.parse(s);cu=o.n;cc=o.c;
+      US=await fbGet('/comps/'+fkey(cc)+'/users')||{};
+      myPR=await fbGet('/comps/'+fkey(cc)+'/preds/'+fkey(cu))||{};
+      mySpecial=await fbGet('/comps/'+fkey(cc)+'/special/'+fkey(cu))||{};
+      showR();
+    }catch(e){sessionStorage.removeItem('wc_s');}
+  }
+}
+
+function go(i){
+  document.querySelectorAll('.pg').forEach(function(p,j){p.classList.toggle('on',j===i);});
+  document.querySelectorAll('.nt').forEach(function(t,j){t.classList.toggle('on',j===i);});
+  if(i===1)rp();if(i===2)rall();if(i===3)rfix();if(i===4)releme2();if(i===5)rspecial();if(i===7)rlb();if(i===8)ra();
+}
+
+function showR(){
+  el('rfrm').style.display='none';el('rret').style.display='block';
+  el('wm').textContent='Hos geldin '+cu+'! (Yarisma: '+cc+')';
+  el('ub').textContent=cc;el('ub').style.display='inline';
+}
+function doSw(){cu=cc=null;sessionStorage.removeItem('wc_s');myPR={};US={};mySpecial={};el('rfrm').style.display='block';el('rret').style.display='none';el('ub').style.display='none';}
+async function doReg(){
+  var n=el('rn').value.trim(),c=el('rc').value.trim().toUpperCase();
+  if(!n||!c){alert('Ad ve yarisma kodu gerekli!');return;}
+  var btn=el('regbtn');btn.disabled=true;btn.textContent='Kaydediliyor...';
+  cu=n;cc=c;
+  US=await fbGet('/comps/'+fkey(cc)+'/users')||{};
+  myPR=await fbGet('/comps/'+fkey(cc)+'/preds/'+fkey(cu))||{};
+  mySpecial=await fbGet('/comps/'+fkey(cc)+'/special/'+fkey(cu))||{};
+  await fbSet('/comps/'+fkey(cc)+'/users/'+fkey(cu),{name:cu});
+  US[cu]={name:cu};
+  sessionStorage.setItem('wc_s',JSON.stringify({n:n,c:c}));
+  btn.disabled=false;btn.textContent='Yarisma Katil';
+  showR();go(1);
+}
+</script>
+<script>
+function rp(){
+  if(!cu){el('mc').innerHTML='<p style="padding:20px;text-align:center;color:#7a8aaa">Once giris yap</p>';return;}
+  el('mc').innerHTML='<p style="padding:12px;color:#7a8aaa;font-size:12px">Yukleniyor...</p>';
+  fbGet('/wc_locked').then(function(d){LK=d||{};
+    el('gtabs').innerHTML=GL.map(function(g){return'<button class="tp '+(g===ag?'on':'')+'" onclick="swg(\''+g+'\')">'+g+'</button>';}).join('');
+    rgm();upc();
+  });
+}
+function swg(g){ag=g;document.querySelectorAll('#gtabs .tp').forEach(function(b,i){b.classList.toggle('on',GL[i]===g);});rgm();}
+function matchRow(m){
+  var p=myPR[m.id]||{},sv=p.w!==undefined,locked=LK[m.id]===true,id=m.id;
+  var hsV=p.hs!==undefined?p.hs:'',asV=p.as!==undefined?p.as:'';
+  var hsI=locked?'<input class="sc" type="number" id="hs'+id+'" value="'+hsV+'" placeholder="-" disabled>':'<input class="sc" type="number" id="hs'+id+'" value="'+hsV+'" placeholder="-" onchange="aus(\''+id+'\')">';
+  var asI=locked?'<input class="sc" type="number" id="as'+id+'" value="'+asV+'" placeholder="-" disabled>':'<input class="sc" type="number" id="as'+id+'" value="'+asV+'" placeholder="-" onchange="aus(\''+id+'\')">';
+  var wH=locked?'<button class="wb '+(p.w==='H'?'wh':'')+'" disabled>'+m.h.split(' ')[0]+'</button>':'<button class="wb '+(p.w==='H'?'wh':'')+'" onclick="slw(\''+id+'\',\'H\')">'+m.h.split(' ')[0]+'</button>';
+  var wD=locked?'<button class="wb '+(p.w==='D'?'wd':'')+'" disabled>Ber.</button>':'<button class="wb '+(p.w==='D'?'wd':'')+'" onclick="slw(\''+id+'\',\'D\')">Ber.</button>';
+  var wA=locked?'<button class="wb '+(p.w==='A'?'wa':'')+'" disabled>'+m.a.split(' ')[0]+'</button>':'<button class="wb '+(p.w==='A'?'wa':'')+'" onclick="slw(\''+id+'\',\'A\')">'+m.a.split(' ')[0]+'</button>';
+  var stl=locked?'<div class="lkbadge">KILITLI</div>':'<div class="ok" id="ok'+id+'">'+(sv?'kaydedildi':'')+'</div>';
+  return'<div class="mr '+(sv?'sv ':'')+(locked?'lk':'')+'" id="mr'+id+'"><div><b>'+m.hc+'</b> '+m.h+'</div><div class="vb"><div class="si">'+hsI+'<span class="sep">-</span>'+asI+'</div><div class="ws">'+wH+wD+wA+'</div>'+stl+'</div><div class="tmr">'+m.a+' <b>'+m.ac+'</b></div></div>';
+}
+function rgm(){el('mc').innerHTML=gm(ag).map(matchRow).join('');}
+async function slw(id,w){
+  if(LK[id])return;
+  var p=myPR[id]||{};p.w=w;
+  var hs=el('hs'+id).value,as_=el('as'+id).value;
+  if(hs!=='')p.hs=+hs;if(as_!=='')p.as=+as_;
+  myPR[id]=p;await fbSet('/comps/'+fkey(cc)+'/preds/'+fkey(cu)+'/'+id,p);
+  var row=el('mr'+id);row.classList.add('sv');
+  row.querySelectorAll('.wb').forEach(function(b){b.className='wb';});
+  var bs=row.querySelectorAll('.wb');
+  if(w==='H')bs[0].className='wb wh';if(w==='D')bs[1].className='wb wd';if(w==='A')bs[2].className='wb wa';
+  var ok=el('ok'+id);if(ok)ok.textContent='kaydedildi';upc();
+}
+async function aus(id){
+  if(LK[id])return;
+  var p=myPR[id]||{};
+  var hs=el('hs'+id).value,as_=el('as'+id).value;
+  if(hs!=='')p.hs=+hs;if(as_!=='')p.as=+as_;
+  myPR[id]=p;await fbSet('/comps/'+fkey(cc)+'/preds/'+fkey(cu)+'/'+id,p);
+}
+function upc(){var d=Object.values(myPR).filter(function(p){return p.w!==undefined;}).length;el('pc').textContent=d+'/72 kaydedildi';}
+
+function normName(s){
+  if(!s)return'';
+  return s.trim().toLowerCase()
+    .replace(/\u011f/g,'g').replace(/\u00fc/g,'u').replace(/\u015f/g,'s')
+    .replace(/\u0131/g,'i').replace(/\u00f6/g,'o').replace(/\u00e7/g,'c')
+    .replace(/\u00e9|\u00e8|\u00ea/g,'e').replace(/\u00e1|\u00e0|\u00e2/g,'a')
+    .replace(/[^a-z0-9 ]/g,'').replace(/\s+/g,' ').trim();
+}
+function scorecat(p1,p2,r1,r2){
+  if(!r1)return 0;
+  if(p1===r1&&p2===r2)return 15;
+  if(r2&&p1===r2&&p2===r1)return 10;
+  if(p1===r1)return 5;
+  if(r2&&p2===r2)return 3;
+  return 0;
+}
+function calcSpecial(pred){
+  if(!pred||!SP)return 0;
+  return scorecat(normName(pred.g1||''),normName(pred.g2||''),normName(SP.g1||''),normName(SP.g2||''))
+        +scorecat(normName(pred.a1||''),normName(pred.a2||''),normName(SP.a1||''),normName(SP.a2||''));
+}
+function calcScore(up){
+  var pts=0,cor=0,exact=0,outcome=0,scored=0;
+  GL.forEach(function(g){gm(g).forEach(function(m){
+    var r=RE[m.id],p=up?up[m.id]:null;if(!r||!p||p.w===undefined)return;
+    scored++;
+    if(p.hs!==undefined&&p.as!==undefined&&p.hs===r.h&&p.as===r.a){pts+=5;cor++;exact++;}
+    else if(p.w===ow(r.h,r.a)){pts+=3;cor++;outcome++;}
+  });});
+  return{pts:pts,cor:cor,exact:exact,outcome:outcome,scored:scored};
+}
+</script>
+<script>
+function rlb(){
+  if(!cc){el('lbc').innerHTML='<p style="padding:20px;text-align:center;color:#7a8aaa">Once giris yap</p>';return;}
+  el('lbc').innerHTML='<p style="padding:20px;text-align:center;color:#7a8aaa">Yukleniyor...</p>';
+  Promise.all([
+    fbGet('/wc_r'),fbGet('/comps/'+fkey(cc)+'/users'),fbGet('/comps/'+fkey(cc)+'/preds'),
+    fbGet('/wc_special'),fbGet('/comps/'+fkey(cc)+'/special'),fbGet('/comps/'+fkey(cc)+'/bonus'),
+    fbGet('/ko_r'),fbGet('/comps/'+fkey(cc)+'/ko_preds')
+  ]).then(function(res){
+    RE=res[0]||{};SP=res[3]||{};KOR=res[6]||{};
+    var users=res[1]||{},allPreds=res[2]||{},allSpecial=res[4]||{},bonus=res[5]||{},allKOPreds=res[7]||{};
+    var rCount=Object.keys(RE).length;
+    el('lbu').textContent='Kod: '+cc+' | '+Object.keys(users).length+' kisi | '+rCount+'/72 sonuc girildi';
+    if(!Object.keys(users).length){el('lbc').innerHTML='<p style="padding:20px;text-align:center;color:#7a8aaa">Henuz katilimci yok</p>';return;}
+    var rows=Object.keys(users).map(function(u){
+      var up=allPreds[u]||{};
+      var sc=calcScore(up);
+      var displayName=(users[u]&&users[u].name)?users[u].name:u;
+      var spPts=calcSpecial(allSpecial[fkey(displayName)]||{});
+      var bonusPts=parseInt(bonus[fkey(displayName)]||0,10)||0;
+      var koSc=calcAllKOScore(allKOPreds[fkey(displayName)]||{});
+      var predCount=Object.keys(up).filter(function(k){return up[k]&&up[k].w!==undefined;}).length;
+      var totalCor=(sc.cor||0)+(koSc.cor||0);
+      var totalScored=(sc.scored||0)+(koSc.scored||0);
+      var oran=totalScored>0?Math.round(totalCor/totalScored*100):null;
+      return{name:displayName,pts:sc.pts+spPts+bonusPts+koSc.pts,cor:sc.cor,exact:sc.exact,outcome:sc.outcome,spPts:spPts,bonus:bonusPts,koPts:koSc.pts,preds:predCount,totalCor:totalCor,totalScored:totalScored,oran:oran};
+    }).sort(function(a,b){return b.pts-a.pts;});
+    var medals=['1.','2.','3.'];
+    el('lbc').innerHTML='<table><thead><tr><th>#</th><th>Isim</th><th>Puan</th><th title="Tam skor +5">Tam Skor</th><th title="Dogru sonuc +3">Sonuc</th><th title="Eleme turu puani">Eleme</th><th title="Dogru tahmin orani">Oran</th></tr></thead><tbody>'+
+      rows.map(function(r,i){
+        var nameCell=r.name+(r.bonus>0?' <span style="font-size:10px;color:#a78bfa;font-weight:700">(+'+r.bonus+' bonus)</span>':'');
+        var oranStr=r.oran!==null?r.totalCor+'/'+r.totalScored+' <span style="font-size:10px">('+r.oran+'%)</span>':'--';
+        return'<tr><td style="color:#7a8aaa;width:28px">'+(medals[i]||i+1)+'</td><td style="font-weight:600">'+nameCell+'</td><td><span class="pts">'+r.pts+'</span></td><td style="color:#D4A843;font-weight:600">'+r.exact+'</td><td style="color:#4ade80;font-weight:600">'+r.outcome+'</td><td style="color:#60b4f0;font-weight:600">'+(r.koPts>0?'+'+r.koPts:'--')+'</td><td style="color:#e8edf5;font-size:12px">'+oranStr+'</td></tr>';
+      }).join('')+'</tbody></table>'+
+      (rows.some(function(r){return r.preds===0;})?'<p style="font-size:11px;color:#c0392b;margin-top:8px;padding:0 8px">&#9888; 0/72 olan kullanicilar hic tahmin girmemis.</p>':'')+
+      '<div style="margin-top:16px;padding:12px 14px;background:#132040;border:1px solid #263a5e;border-radius:8px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px"><span style="font-size:12px;color:#7a8aaa">Grup asamas&#305; ilerlemesi</span><div style="display:flex;gap:16px"><span style="font-size:12px"><b style="color:#4ade80">'+rCount+'</b> <span style="color:#7a8aaa">mac tamamlandi</span></span><span style="font-size:12px"><b style="color:#D4A843">'+(72-rCount)+'</b> <span style="color:#7a8aaa">mac kaldi</span></span></div></div>';
+  });
+}
+
+function rall(){
+  if(!cc){el('allc').innerHTML='<p style="padding:20px;text-align:center;color:#7a8aaa">Once giris yap</p>';return;}
+  el('allc').innerHTML='<p style="padding:20px;text-align:center;color:#7a8aaa">Yukleniyor...</p>';
+  Promise.all([fbGet('/wc_r'),fbGet('/comps/'+fkey(cc)+'/users'),fbGet('/comps/'+fkey(cc)+'/preds'),fbGet('/wc_locked'),fbGet('/comps/'+fkey(cc)+'/special'),fbGet('/wc_special')]).then(function(results){
+    RE=results[0]||{};var users=results[1]||{},allPreds=results[2]||{},locked=results[3]||{},allSpecial=results[4]||{},spResult=results[5]||{};
+    var userKeys=Object.keys(users);
+    el('allinfo').textContent=userKeys.length+' katilimci';
+    if(!userKeys.length){el('allc').innerHTML='<p style="padding:20px;text-align:center;color:#7a8aaa">Katilimci yok</p>';return;}
+    var html='';
+    GL.forEach(function(g){
+      var groupHtml='';
+      gm(g).forEach(function(m){
+        var r=RE[m.id],outcome=r?ow(r.h,r.a):null;
+        var resultStr=r?r.h+'-'+r.a:'Sonuc bekleniyor';
+        var resultColor=r?'#4ade80':'#7a8aaa';
+        var badges='';
+        userKeys.forEach(function(uk){
+          var p=(allPreds[uk]||{})[m.id];
+          var uname=(users[uk]&&users[uk].name)?users[uk].name:uk;
+          if(!p||p.w===undefined){badges+='<span style="font-size:11px;padding:2px 8px;border-radius:3px;background:#0a1628;border:1px solid #263a5e;color:#7a8aaa">'+uname+': ?</span>';return;}
+          var wLabel=p.w==='H'?m.h.split(' ')[0]:p.w==='A'?m.a.split(' ')[0]:'Ber.';
+          var scoreStr=(p.hs!==undefined&&p.as!==undefined)?' ('+p.hs+'-'+p.as+')':'';
+          var bg,bc,tc;
+          if(!outcome){bg='rgba(41,128,185,.2)';bc='#2980b9';tc='#60b4f0';}
+          else if(r&&p.hs===r.h&&p.as===r.a){bg='rgba(212,168,67,.3)';bc='#D4A843';tc='#D4A843';}
+          else if(p.w===outcome){bg='rgba(26,122,74,.3)';bc='#1a7a4a';tc='#4ade80';}
+          else{bg='rgba(192,57,43,.2)';bc='#c0392b';tc='#f87171';}
+          badges+='<span style="font-size:11px;padding:2px 8px;border-radius:3px;background:'+bg+';border:1px solid '+bc+';color:'+tc+'">'+uname+': '+wLabel+scoreStr+'</span>';
+        });
+        groupHtml+='<div style="background:#132040;border:1px solid #263a5e;border-radius:8px;padding:10px;margin-bottom:6px"><div style="font-size:12px;font-weight:600;margin-bottom:7px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:4px"><span>'+m.hc+' '+m.h+' - '+m.a+' '+m.ac+'</span><span style="color:'+resultColor+'">'+resultStr+'</span></div><div style="display:flex;flex-wrap:wrap;gap:4px">'+badges+'</div></div>';
+      });
+      if(groupHtml)html+='<div style="margin-bottom:16px"><div style="font-weight:700;color:#D4A843;font-size:12px;letter-spacing:1px;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #263a5e">GRUP '+g+'</div>'+groupHtml+'</div>';
+    });
+    if(!html)html='<p style="padding:20px;text-align:center;color:#7a8aaa">Veri yok</p>';
+
+    // Special predictions section at bottom
+    var spHtml='<div style="margin-top:20px;padding-top:14px;border-top:2px solid #263a5e">'
+      +'<div style="font-weight:700;color:#D4A843;font-size:13px;margin-bottom:10px">&#11088; Ozel Tahminler &mdash; Gol &amp; Asist Krali</div>';
+    if(spResult.g1||spResult.a1){
+      spHtml+='<div style="font-size:11px;color:#7a8aaa;margin-bottom:8px">Resmi sonuc &rarr; Gol: <b style="color:#4ade80">'+(spResult.g1||'?')+' / '+(spResult.g2||'?')+'</b> &nbsp; Asist: <b style="color:#4ade80">'+(spResult.a1||'?')+' / '+(spResult.a2||'?')+'</b></div>';
+    }
+    spHtml+='<div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:6px">';
+    userKeys.forEach(function(uk){
+      var name=(users[uk]&&users[uk].name)?users[uk].name:uk;
+      var sp=allSpecial[fkey(name)]||{};
+      var hasAny=sp.g1||sp.g2||sp.a1||sp.a2;
+      var spPts=calcSpecial(sp);
+      var border=hasAny?'#263a5e':'rgba(192,57,43,.3)';
+      spHtml+='<div style="background:#132040;border:1px solid '+border+';border-radius:7px;padding:8px">'
+        +'<div style="font-weight:700;font-size:12px;margin-bottom:6px;color:#e8edf5">'+name
+        +(spPts>0?' <span style="font-size:10px;color:#D4A843;font-weight:700">+'+spPts+'</span>':'')
+        +'</div>';
+      if(hasAny){
+        spHtml+='<div style="font-size:11px;color:#7a8aaa;line-height:1.8">'
+          +'<span style="color:#60b4f0">Gol:</span> '+(sp.g1||'--')+' / '+(sp.g2||'--')+'<br>'
+          +'<span style="color:#60b4f0">Asist:</span> '+(sp.a1||'--')+' / '+(sp.a2||'--')
+          +'</div>';
+      }else{
+        spHtml+='<div style="font-size:11px;color:#c0392b">Tahmin girilmemis</div>';
+      }
+      spHtml+='</div>';
+    });
+    spHtml+='</div></div>';
+    el('allc').innerHTML=html+spHtml;
+  });
+}
+
+function rfix(){
+  el('fixc').innerHTML='<p style="padding:12px;color:#7a8aaa;font-size:12px">Yukleniyor...</p>';
+  fbGet('/wc_r').then(function(d){
+    RE=d||{};
+    var byDate={};
+    GL.forEach(function(g){gm(g).forEach(function(m){var fx=FX[m.id];if(!fx)return;if(!byDate[fx.d])byDate[fx.d]=[];byDate[fx.d].push({m:m,t:fx.t,g:g});});});
+    DAYS.slice().reverse().forEach(function(day){if(byDate[day])byDate[day].sort(function(a,b){return a.t.localeCompare(b.t);});});
+    var html='';
+    DAYS.forEach(function(day){
+      var items=byDate[day];if(!items||!items.length)return;
+      html+='<div style="margin-bottom:14px"><div style="font-weight:700;color:#D4A843;font-size:13px;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #263a5e">'+day+'</div>';
+      items.forEach(function(item){
+        var m=item.m,r=RE[m.id],played=!!r;
+        var scoreStr=played?(r.h+' - '+r.a):'';
+        var scoreColor=played?(r.h>r.a?'#4ade80':r.h<r.a?'#f87171':'#D4A843'):'';
+        html+='<div style="display:flex;align-items:center;padding:7px 10px;background:#132040;border:1px solid '+(played?'rgba(26,122,74,.35)':'#263a5e')+';border-radius:6px;margin-bottom:4px;gap:6px">'
+          +'<span style="font-size:12px;font-weight:700;color:'+(played?'#7a8aaa':'#e8edf5')+';min-width:42px">'+item.t+'</span>'
+          +'<span style="font-size:10px;color:#7a8aaa;background:#0a1628;padding:1px 5px;border-radius:3px;min-width:18px;text-align:center">'+item.g+'</span>'
+          +'<span style="flex:1;font-size:12px;font-weight:600;'+(played?'color:#7a8aaa':'')+'">'+m.h+'</span>'
+          +(played?'<span style="font-size:14px;font-weight:700;color:'+scoreColor+';min-width:40px;text-align:center">'+scoreStr+'</span>':'<span style="font-size:11px;color:#7a8aaa;min-width:40px;text-align:center">vs</span>')
+          +'<span style="flex:1;font-size:12px;font-weight:600;text-align:right;'+(played?'color:#7a8aaa':'')+'">'+m.a+'</span>'
+          +'</div>';
+      });
+      html+='</div>';
+    });
+    el('fixc').innerHTML=html;
+  });
+}
+</script>
+<script>
+function rspecial(){
+  if(!cu){el('specform').innerHTML='<p style="padding:20px;text-align:center;color:#7a8aaa">Once giris yap</p>';return;}
+  Promise.all([fbGet('/wc_special'),fbGet('/comps/'+fkey(cc)+'/special/'+fkey(cu)),fbGet('/wc_special_locked')]).then(function(res){
+    SP=res[0]||{};mySpecial=res[1]||{};SPL=res[2]===true;
+    var spPts=calcSpecial(mySpecial);
+    var hasResult=SP.g1||SP.a1;
+    el('specform').innerHTML=
+      '<div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:14px">'
+      +'<div style="background:#132040;border:1px solid #263a5e;border-radius:8px;padding:14px">'
+      +'<div style="font-size:13px;font-weight:700;color:#D4A843;margin-bottom:10px">&#9917; Gol Kral&#305;</div>'
+      +'<div class="fg"><label class="lbl">1. S&#305;ra</label><input id="sg1" type="text" placeholder="Oyuncu ad&#305;" value="'+(mySpecial.g1||'')+'" '+(SPL?'disabled':'')+'/></div>'
+      +'<div class="fg"><label class="lbl">2. S&#305;ra</label><input id="sg2" type="text" placeholder="Oyuncu ad&#305;" value="'+(mySpecial.g2||'')+'" '+(SPL?'disabled':'')+'/></div>'
+      +(SP.g1?'<div style="font-size:11px;color:#7a8aaa;margin-top:4px">Resmi: <b style="color:#4ade80">'+SP.g1+'</b> / <b style="color:#4ade80">'+SP.g2+'</b></div>':'')
+      +'</div>'
+      +'<div style="background:#132040;border:1px solid #263a5e;border-radius:8px;padding:14px">'
+      +'<div style="font-size:13px;font-weight:700;color:#D4A843;margin-bottom:10px">&#127919; Asist Kral&#305;</div>'
+      +'<div class="fg"><label class="lbl">1. S&#305;ra</label><input id="sa1" type="text" placeholder="Oyuncu ad&#305;" value="'+(mySpecial.a1||'')+'" '+(SPL?'disabled':'')+'/></div>'
+      +'<div class="fg"><label class="lbl">2. S&#305;ra</label><input id="sa2" type="text" placeholder="Oyuncu ad&#305;" value="'+(mySpecial.a2||'')+'" '+(SPL?'disabled':'')+'/></div>'
+      +(SP.a1?'<div style="font-size:11px;color:#7a8aaa;margin-top:4px">Resmi: <b style="color:#4ade80">'+SP.a1+'</b> / <b style="color:#4ade80">'+SP.a2+'</b></div>':'')
+      +'</div>'
+      +'</div>'
+      +(SPL?'<div style="font-size:12px;color:#c0392b;margin-bottom:8px;padding:8px;background:rgba(192,57,43,.1);border:1px solid rgba(192,57,43,.3);border-radius:6px">&#128274; Tahminler kilitlendi &mdash; admin acana kadar degistiremezsiniz.</div>':'')
+      +'<button class="btn bg" onclick="saveSpecial()" '+(SPL?'disabled':'')+'>'+( SPL?'&#128274; Kilitli':'Tahminleri Kaydet')+'</button>'
+      +' <span id="spst" style="font-size:11px;color:#4ade80"></span>'
+      +(hasResult?'<div style="margin-top:12px;padding:10px;background:#132040;border:1px solid #263a5e;border-radius:8px;font-size:13px">Ozel tahmin puanin: <b style="color:#D4A843;font-size:18px">'+spPts+'</b></div>':'')
+      +'<div style="margin-top:12px;padding:10px;background:rgba(212,168,67,.08);border:1px solid rgba(212,168,67,.2);border-radius:8px;font-size:11px;color:#7a8aaa;line-height:1.9">'
+      +'&#11088; 1. ve 2. tam dogru sirayla: <b style="color:#D4A843">+15</b><br>'
+      +'Ikisi de dogru ama sira ters: <b style="color:#D4A843">+10</b><br>'
+      +'Sadece 1. oyuncu dogru: <b style="color:#D4A843">+5</b><br>'
+      +'Sadece 2. oyuncu dogru: <b style="color:#D4A843">+3</b><br>'
+      +'Gol ve asist icin ayri ayri gecerli &mdash; maks. <b style="color:#D4A843">30 puan</b>'
+      +'</div>';
+  });
+}
+async function saveSpecial(){
+  if(!cu||!cc){alert('Once giris yap!');return;}
+  if(SPL){alert('Ozel tahminler kilitlendi, degistiremezsiniz.');return;}
+  var g1=el('sg1')?el('sg1').value.trim():'';
+  var g2=el('sg2')?el('sg2').value.trim():'';
+  var a1=el('sa1')?el('sa1').value.trim():'';
+  var a2=el('sa2')?el('sa2').value.trim():'';
+  var sp={g1:g1,g2:g2,a1:a1,a2:a2};
+  mySpecial=sp;
+  var st=el('spst');
+  if(st){st.textContent='Kaydediliyor...';st.style.color='#7a8aaa';}
+  try{
+    await fbSet('/comps/'+fkey(cc)+'/special/'+fkey(cu),sp);
+    if(st){st.textContent='Kaydedildi!';st.style.color='#4ade80';setTimeout(function(){st.textContent='';},2500);}
+  }catch(e){
+    console.error('saveSpecial error:',e);
+    if(st){st.textContent='HATA! Tekrar dene.';st.style.color='#f87171';}
+  }
+}
+async function saveAdminSpecial(){
+  var sp={g1:el('asg1').value.trim(),g2:el('asg2').value.trim(),a1:el('asa1').value.trim(),a2:el('asa2').value.trim()};
+  SP=sp;await fbSet('/wc_special',sp);
+  var st=el('admspst');if(st){st.textContent='Kaydedildi!';setTimeout(function(){st.textContent='';},2000);}
+}
+async function toggleSpecialLock(){
+  SPL=!SPL;await fbSet('/wc_special_locked',SPL);
+  var btn=el('spLockBtn');
+  if(btn)btn.innerHTML=SPL?'&#128275; Kilidi Ac':'&#128274; Tahminleri Kilitle';
+  var st=el('admspst');if(st){st.textContent=SPL?'Kilitlendi!':'Kilit acildi!';setTimeout(function(){st.textContent='';},2000);}
+}
+function loadAdminSpecialPreds(){
+  if(!cc)return;
+  Promise.all([fbGet('/comps/'+fkey(cc)+'/users'),fbGet('/comps/'+fkey(cc)+'/special'),fbGet('/wc_special_locked')]).then(function(res){
+    var users=res[0]||{},allSp=res[1]||{};SPL=res[2]===true;
+    var btn=el('spLockBtn');if(btn)btn.innerHTML=SPL?'&#128275; Kilidi Ac':'&#128274; Tahminleri Kilitle';
+    var keys=Object.keys(users);
+    if(!keys.length){var d=el('admSpPreds');if(d)d.innerHTML='Katilimci yok';return;}
+    var rows=keys.map(function(uk){
+      var name=(users[uk]&&users[uk].name)?users[uk].name:uk;
+      var sp=allSp[fkey(name)]||{};
+      return'<tr><td style="padding:5px 8px;border-bottom:1px solid #263a5e;font-weight:600">'+name+'</td><td style="padding:5px 8px;border-bottom:1px solid #263a5e">'+(sp.g1||'--')+' / '+(sp.g2||'--')+'</td><td style="padding:5px 8px;border-bottom:1px solid #263a5e">'+(sp.a1||'--')+' / '+(sp.a2||'--')+'</td></tr>';
+    }).join('');
+    var d=el('admSpPreds');
+    if(d)d.innerHTML='<table style="width:100%;border-collapse:collapse;margin-top:6px"><thead><tr><th style="text-align:left;padding:4px 8px;font-size:10px;color:#7a8aaa;border-bottom:1px solid #263a5e">Isim</th><th style="text-align:left;padding:4px 8px;font-size:10px;color:#7a8aaa;border-bottom:1px solid #263a5e">Gol Krali (1./2.)</th><th style="text-align:left;padding:4px 8px;font-size:10px;color:#7a8aaa;border-bottom:1px solid #263a5e">Asist Krali (1./2.)</th></tr></thead><tbody>'+rows+'</tbody></table>';
+  });
+}
+
+function ra(){
+  if(!aok){el('admcnt').style.display='none';el('admlk').style.display='block';return;}
+  el('admlk').style.display='none';el('admcnt').style.display='block';
+  fbGet('/wc_r').then(function(d){RE=d||{};
+    fbGet('/wc_special').then(function(ds){SP=ds||{};
+      if(el('asg1')&&SP.g1){el('asg1').value=SP.g1||'';el('asg2').value=SP.g2||'';el('asa1').value=SP.a1||'';el('asa2').value=SP.a2||'';}
+    });
+    if(cc)loadAdminSpecialPreds();
+    fbGet('/ko_r').then(function(dk){KOR=dk||{}; rKOMatchList();});
+    fbGet('/wc_locked').then(function(d2){LK=d2||{};
+      el('atabs').innerHTML=GL.map(function(g){
+        var done=Object.keys(RE).filter(function(k){return k.charAt(0)===g;}).length;
+        return'<button class="tp '+(g===aag?'on':'')+'" onclick="swag(\''+g+'\')">'+g+(done===6?' V':'')+'</button>';
+      }).join('');
+      rag();
+    });
+  });
+}
+function ck(){if(el('admk').value.trim()!==AK){alert('Yanlis kod!');return;}aok=true;ra();}
+function swag(g){aag=g;document.querySelectorAll('#atabs .tp').forEach(function(b,i){b.classList.toggle('on',GL[i]===g);});rag();}
+function adminCard(m){
+  var r=RE[m.id]||{},hr=r.h!==undefined,locked=LK[m.id]===true,id=m.id;
+  var fx=FX[id]||{};var dateStr=fx.d&&fx.t?fx.d+' '+fx.t:'';
+  var lockBtn=locked?'<button class="btn brd" style="font-size:11px;padding:4px 8px" onclick="doUnlock(\''+id+'\')">Kilidi Ac</button>':'<button class="btn bo" style="font-size:11px;padding:4px 8px;border-color:#c0392b;color:#c0392b" onclick="doLock(\''+id+'\')">Kilitle</button>';
+  var delBtn=hr?'<button class="btn bo" style="font-size:11px;padding:4px 8px" onclick="clr(\''+id+'\')">Sil</button>':'';
+  return'<div class="am '+(locked?'amlk':'')+'"><h4><span>'+m.hc+' '+m.h+' - '+m.a+' '+m.ac+'</span><span class="rt '+(hr?'':'rtp')+'">'+(hr?r.h+'-'+r.a:'Bekleniyor')+'</span></h4>'+(dateStr?'<div style="font-size:10px;color:#D4A843;margin-bottom:6px">'+dateStr+'</div>':'')+'<div class="ars"><input class="sc" type="number" id="rh'+id+'" value="'+(hr?r.h:'')+'" placeholder="-"><span style="color:#7a8aaa;font-weight:700;font-size:15px">-</span><input class="sc" type="number" id="ra'+id+'" value="'+(hr?r.a:'')+'" placeholder="-"></div><div class="abtn-row"><button class="btn bgr" style="font-size:11px;padding:4px 10px" onclick="svr(\''+id+'\')">Sonucu Kaydet</button>'+delBtn+lockBtn+'</div></div>';
+}
+function rag(){el('amc').innerHTML='<div class="ag">'+gm(aag).map(adminCard).join('')+'</div>';}
+async function svr(id){
+  var h=el('rh'+id).value,a=el('ra'+id).value;
+  if(h===''||a===''){alert('Iki skoru da gir!');return;}
+  var btn=document.querySelector('[onclick="svr(\''+id+'\')"]');
+  if(btn){btn.textContent='Kaydediliyor...';btn.disabled=true;}
+  try{
+    RE[id]={h:+h,a:+a};
+    await fbSet('/wc_r/'+id,{h:+h,a:+a});
+    ra();
+  }catch(e){
+    alert('HATA: '+e.message);
+    if(btn){btn.textContent='Sonucu Kaydet';btn.disabled=false;}
+  }
+}
+async function clr(id){delete RE[id];await fbDel('/wc_r/'+id);ra();}
+async function doLock(id){LK[id]=true;await fbSet('/wc_locked/'+id,true);ra();}
+async function doUnlock(id){delete LK[id];await fbDel('/wc_locked/'+id);ra();}
+async function lockAll(){if(!confirm('Tum 72 mac kilitlensin mi?'))return;var all={};GL.forEach(function(g){gm(g).forEach(function(m){all[m.id]=true;});});await fbSet('/wc_locked',all);LK=all;alert('Tum maclar kilitlendi.');ra();}
+async function unlockAll(){if(!confirm('Tum kilitler acilsin mi?'))return;await fbDel('/wc_locked');LK={};alert('Tum kilitler acildi.');ra();}
+
+async function saveBonus(){
+  if(!cc){alert('Once bir yarisma koduna giris yap (Giris sekmesi)');return;}
+  var user=el('bonusUser').value.trim();
+  var pts=parseInt(el('bonusPts').value,10);
+  if(!user){alert('Kullanici adini yaz!');return;}
+  if(isNaN(pts)){alert('Gecerli bir puan yaz!');return;}
+  var st=el('bonusSt');
+  if(st){st.textContent='Kaydediliyor...';st.style.color='#7a8aaa';}
+  try{
+    if(pts===0){
+      await fbDel('/comps/'+fkey(cc)+'/bonus/'+fkey(user));
+    }else{
+      await fbSet('/comps/'+fkey(cc)+'/bonus/'+fkey(user),pts);
+    }
+    if(st){st.textContent=user+' icin '+pts+' puan kaydedildi!';st.style.color='#4ade80';setTimeout(function(){st.textContent='';},3000);}
+    el('bonusUser').value='';el('bonusPts').value='';
+  }catch(e){
+    if(st){st.textContent='HATA: '+e.message;st.style.color='#f87171';}
+  }
+}
+
+
+ld();
+</script>
+</body>
+</html>
+<script>
+
+// ─── KO PUANLAMA (Son 32'den itibaren) ───────────
+function calcKOScore(pred, result) {
+  if(!result||!pred||pred.w===undefined) return 0;
+  var realOut = result.h>result.a?'H':result.h<result.a?'A':'D';
+  var predExact = pred.hs!==undefined&&pred.as!==undefined&&pred.hs===result.h&&pred.as===result.a;
+  var base=0;
+  if(realOut==='D') {
+    if(predExact) base=8;
+    else if(pred.w==='D') base=6;
+  } else {
+    if(predExact&&pred.w===realOut) base=5;
+    else if(pred.w===realOut) base=3;
+  }
+  // +2 turu kim gecer
+  var realAdv = realOut!=='D' ? realOut : (result.adv||null);
+  var advBonus = (realAdv && pred.adv && pred.adv===realAdv) ? 2 : 0;
+  return base+advBonus;
+}
+
+function calcAllKOScore(userKOPreds) {
+  if(!userKOPreds||!KOR) return {pts:0,cor:0,scored:0};
+  var pts=0,cor=0,scored=0;
+  Object.keys(KOR).forEach(function(id){
+    var r=KOR[id], p=userKOPreds[id];
+    if(!p||p.w===undefined) return;
+    scored++;
+    var s=calcKOScore(p,r);
+    if(s>0) cor++;
+    pts+=s;
+  });
+  return {pts:pts,cor:cor,scored:scored};
+}
+
+
+// ─── BRACKET CARD HELPER ─────────────────────────
+function bCard(m, r) {
+  var played = r && r.h !== undefined;
+  var wH = played && r.h > r.a, wA = played && r.a > r.h;
+  var etTag = played && r.et ? '<span class="bet">UZ</span>' : '';
+  return '<div class="bmatch'+(played?' bplayed':'')+'">'+
+    '<div class="bdate">'+(m.date||'')+(m.time?' &bull; '+m.time:'')+'</div>'+
+    '<div class="bteam'+(wH?' bwin':played?' bloss':'')+'">'+
+      '<span class="bflag">'+getFlag(m.h)+'</span>'+
+      '<span class="bname">'+m.h+'</span>'+
+      (played?'<span class="bsc">'+r.h+'</span>'+etTag:'')+
+    '</div>'+
+    '<div class="bteam'+(wA?' bwin':played?' bloss':'')+'">'+
+      '<span class="bflag">'+getFlag(m.a)+'</span>'+
+      '<span class="bname">'+m.a+'</span>'+
+      (played?'<span class="bsc">'+r.a+'</span>':'')+
+    '</div>'+
+  '</div>';
+}
+
+// ─── KO STATE ───────────────────────────────────
+var KOM = {}; // KO matches from Firebase
+var KOR = {}; // KO results
+var myKO = {}; // current user KO predictions
+var curPTab = 'g'; // 'g' = group, 'ko' = knockout
+
+var KO_ROUNDS = ['Son 32','Son 16','Ceyrek Final','Yari Final','Final','3. luk'];
+
+// Load KO data into ld()
+// (called after main ld - patched below via script tag order)
+
+async function ldKO() {
+  KOM = await fbGet('/ko_matches') || {};
+  KOR = await fbGet('/ko_r') || {};
+  if(cu && cc) myKO = await fbGet('/comps/'+fkey(cc)+'/ko_preds/'+fkey(cu)) || {};
+}
+
+// ─── PREDICTION TAB SWITCH ──────────────────────
+function switchPTab(tab) {
+  curPTab = tab;
+  el('pred_g').style.display = tab==='g' ? 'block' : 'none';
+  el('pred_ko').style.display = tab==='ko' ? 'block' : 'none';
+  el('ptab_g').className = tab==='g' ? 'btn bg' : 'btn bo';
+  el('ptab_ko').className = tab==='ko' ? 'btn bg' : 'btn bo';
+  if(tab==='ko') rkomc();
+}
+
+// ─── KO PREDICTIONS ─────────────────────────────
+function rkomc() {
+  if(!cu){ el('komc').innerHTML='<p style="padding:20px;text-align:center;color:#7a8aaa">Once giris yap</p>'; return; }
+  el('komc').innerHTML='<p style="padding:12px;color:#7a8aaa;font-size:12px">Yukleniyor...</p>';
+  Promise.all([
+    fbGet('/ko_matches'),
+    fbGet('/ko_locked'),
+    fbGet('/comps/'+fkey(cc)+'/ko_preds/'+fkey(cu))
+  ]).then(function(res){
+    KOM = res[0]||{};
+    var KOL = res[1] || {};
+    myKO = res[2]||{};
+    var matches = Object.keys(KOM).map(function(id){ return Object.assign({id:id},KOM[id]); });
+    if(!matches.length){
+      el('komc').innerHTML='<div style="padding:24px;text-align:center;color:#7a8aaa;border:1px dashed #263a5e;border-radius:8px;margin-top:8px">Admin henuz eleme turu maclarini eklemedi.<br><span style="font-size:11px">Maclar eklendikce burada gorunecek.</span></div>';
+      return;
+    }
+    matches.sort(koSort);
+    // Group by round
+    var html='';
+    KO_ROUNDS.forEach(function(rd){
+      var rm=matches.filter(function(m){return m.round===rd.key;});
+      if(!rm.length) return;
+      html+='<div style="font-weight:700;color:#D4A843;font-size:11px;letter-spacing:1px;margin:12px 0 8px;padding-bottom:4px;border-bottom:2px solid rgba(212,168,67,.2)">'+rd.label+'</div>';
+      rm.forEach(function(m){
+      var p=myKO[m.id]||{}, sv=p.w!==undefined, locked=KOL[m.id]===true;
+      var hsV=p.hs!==undefined?p.hs:'', asV=p.as!==undefined?p.as:'';
+      var dateTag='<span style="font-size:10px;color:#D4A843;margin-bottom:4px;display:block">'+m.round+' &bull; '+m.date+' '+m.time+'</span>';
+      var hsI=locked?'<input class="sc" type="number" id="kohs'+m.id+'" value="'+hsV+'" placeholder="-" disabled>':'<input class="sc" type="number" id="kohs'+m.id+'" value="'+hsV+'" placeholder="-" onchange="koaus(\''+m.id+'\')">';
+      var asI=locked?'<input class="sc" type="number" id="koas'+m.id+'" value="'+asV+'" placeholder="-" disabled>':'<input class="sc" type="number" id="koas'+m.id+'" value="'+asV+'" placeholder="-" onchange="koaus(\''+m.id+'\')">';
+      var wH=locked?'<button class="wb '+(p.w==='H'?'wh':'')+'" disabled>'+m.h+'</button>':'<button class="wb '+(p.w==='H'?'wh':'')+'" onclick="koslw(\''+m.id+'\',\'H\')">'+m.h+'</button>';
+      var wD=locked?'<button class="wb '+(p.w==='D'?'wd':'')+'" disabled>Uzatma</button>':'<button class="wb '+(p.w==='D'?'wd':'')+'" onclick="koslw(\''+m.id+'\',\'D\')">Uzatma</button>';
+      var wA=locked?'<button class="wb '+(p.w==='A'?'wa':'')+'" disabled>'+m.a+'</button>':'<button class="wb '+(p.w==='A'?'wa':'')+'" onclick="koslw(\''+m.id+'\',\'A\')">'+m.a+'</button>';
+      var stl=locked?'<div class="lkbadge">KILITLI</div>':'<div class="ok" id="kook'+m.id+'">'+(sv?'kaydedildi':'')+'</div>';
+      var advH=locked
+        ?'<button class="wb '+(p.adv==='H'?'wh':'')+'" disabled>'+m.h+'</button>'
+        :'<button class="wb '+(p.adv==='H'?'wh':'')+'" id="koadvH'+m.id+'" onclick="koAdvSlw(\''+m.id+'\',\'H\')">'+m.h+'</button>';
+      var advA=locked
+        ?'<button class="wb '+(p.adv==='A'?'wa':'')+'" disabled>'+m.a+'</button>'
+        :'<button class="wb '+(p.adv==='A'?'wa':'')+'" id="koadvA'+m.id+'" onclick="koAdvSlw(\''+m.id+'\',\'A\')">'+m.a+'</button>';
+      var advRow='<div style="margin-top:5px;padding-top:5px;border-top:1px solid #263a5e;display:flex;align-items:center;gap:6px;flex-wrap:wrap">'
+        +'<span style="font-size:10px;color:#7a8aaa;white-space:nowrap">Turu Kim Gec&#807;er?</span>'
+        +'<div style="display:flex;gap:3px">'+advH+advA+'</div>'
+        +'<span style="font-size:10px;color:#a78bfa">'+(p.adv?'+2 puan hedefi':'')+'</span>'
+        +'</div>';
+      html+='<div class="mr '+(sv?'sv ':'')+(locked?'lk':'')+'" id="komr'+m.id+'" style="flex-direction:column;align-items:stretch">'+
+        '<div style="display:grid;grid-template-columns:1fr auto 1fr;gap:6px;align-items:center">'+
+          '<div>'+dateTag+'<b>'+m.h+'</b></div>'+
+          '<div class="vb"><div class="si">'+hsI+'<span class="sep">-</span>'+asI+'</div>'+
+          '<div class="ws">'+wH+wD+wA+'</div>'+stl+'</div>'+
+          '<div class="tmr"><b>'+m.a+'</b></div>'+
+        '</div>'+
+        advRow+
+        '</div>';
+      }); // rm.forEach
+    }); // KO_ROUNDS.forEach
+    el('komc').innerHTML=html;
+  });
+}
+
+async function koslw(id,w){
+  var lk = await fbGet('/ko_locked/'+id);
+  if(lk===true) return;
+  var p=myKO[id]||{}; p.w=w;
+  var hs=el('kohs'+id).value, as_=el('koas'+id).value;
+  if(hs!=='') p.hs=+hs; if(as_!=='') p.as=+as_;
+  myKO[id]=p;
+  await fbSet('/comps/'+fkey(cc)+'/ko_preds/'+fkey(cu)+'/'+id,p);
+  var row=el('komr'+id); row.classList.add('sv');
+  row.querySelectorAll('.wb').forEach(function(b){b.className='wb';});
+  var bs=row.querySelectorAll('.wb');
+  if(w==='H')bs[0].className='wb wh'; if(w==='D')bs[1].className='wb wd'; if(w==='A')bs[2].className='wb wa';
+  var ok=el('kook'+id); if(ok) ok.textContent='kaydedildi';
+}
+
+async function koaus(id){
+  var p=myKO[id]||{};
+  var hs=el('kohs'+id).value, as_=el('koas'+id).value;
+  if(hs!=='') p.hs=+hs; if(as_!=='') p.as=+as_;
+  myKO[id]=p;
+  await fbSet('/comps/'+fkey(cc)+'/ko_preds/'+fkey(cu)+'/'+id,p);
+}
+
+async function koAdvSlw(id, adv) {
+  var lk = await fbGet('/ko_locked/'+id);
+  if(lk===true) return;
+  var p=myKO[id]||{}; p.adv=adv;
+  myKO[id]=p;
+  await fbSet('/comps/'+fkey(cc)+'/ko_preds/'+fkey(cu)+'/'+id,p);
+  var btnH=el('koadvH'+id), btnA=el('koadvA'+id);
+  if(btnH) btnH.className='wb '+(adv==='H'?'wh':'');
+  if(btnA) btnA.className='wb '+(adv==='A'?'wa':'');
+  var ok=el('kook'+id); if(ok) ok.textContent='kaydedildi';
+  var row=el('komr'+id); if(row) row.classList.add('sv');
+}
+
+// ─── ELEME BRACKET ──────────────────────────────
+function releme(){
+  el('elemec').innerHTML='<p style="padding:12px;color:#7a8aaa;font-size:12px">Yukleniyor...</p>';
+  Promise.all([fbGet('/ko_matches'),fbGet('/ko_r')]).then(function(res){
+    KOM=res[0]||{}; KOR=res[1]||{};
+    var matches=Object.keys(KOM).map(function(id){return Object.assign({id:id},KOM[id]);});
+    if(!matches.length){
+      el('elemec').innerHTML='<p style="padding:24px;text-align:center;color:#7a8aaa">Eleme turu maclari henuz girilmedi.</p>';
+      return;
+    }
+    el('elemeinfo').textContent=matches.length+' mac';
+    var html='';
+    KO_ROUNDS.forEach(function(round){
+      var roundMatches=matches.filter(function(m){return m.round===round;});
+      if(!roundMatches.length) return;
+      roundMatches.sort(koSort);
+      html+='<div style="margin-bottom:18px"><div style="font-weight:700;color:#D4A843;font-size:13px;margin-bottom:8px;padding-bottom:4px;border-bottom:2px solid #263a5e">'+round.toUpperCase()+'</div>';
+      roundMatches.forEach(function(m){
+        var r=KOR[m.id], played=r&&r.h!==undefined;
+        var scoreColor=played?(r.h>r.a?'#4ade80':r.h<r.a?'#f87171':'#D4A843'):'';
+        html+='<div style="display:flex;align-items:center;padding:10px 12px;background:#132040;border:1px solid '+(played?'rgba(26,122,74,.4)':'#263a5e')+';border-radius:8px;margin-bottom:6px;gap:8px">';
+        html+='<div style="min-width:90px;font-size:11px;color:#7a8aaa">'+m.date+'<br>'+m.time+'</div>';
+        html+='<div style="flex:1;font-size:13px;font-weight:700;'+(played&&r.h<r.a?'color:#7a8aaa':'')+'">'+m.h+'</div>';
+        if(played){
+          html+='<div style="font-size:18px;font-weight:700;color:'+scoreColor+';min-width:50px;text-align:center">'+r.h+' - '+r.a+'</div>';
+          if(r.et) html+='<div style="font-size:10px;color:#D4A843;min-width:30px">UZ.</div>';
+        } else {
+          html+='<div style="font-size:12px;color:#7a8aaa;min-width:50px;text-align:center">vs</div>';
+        }
+        html+='<div style="flex:1;font-size:13px;font-weight:700;text-align:right;'+(played&&r.a<r.h?'color:#7a8aaa':'')+'">'+m.a+'</div>';
+        html+='</div>';
+      });
+      html+='</div>';
+    });
+    el('elemec').innerHTML=html;
+  });
+}
+
+// ─── ADMIN: ADD KO MATCH ────────────────────────
+async function addKOMatch(){
+  var h=el('koh').value.trim(), a=el('koa').value.trim();
+  var d=el('kod').value.trim(), t=el('kot').value.trim();
+  var round=el('koround').value;
+  if(!h||!a){alert('Ev sahibi ve deplasman takim adini yaz!');return;}
+  var id='ko_'+Date.now();
+  var match={h:h,a:a,date:d,time:t,round:round};
+  KOM[id]=match;
+  var st=el('kost');
+  if(st){st.textContent='Kaydediliyor...';st.style.color='#7a8aaa';}
+  await fbSet('/ko_matches/'+id,match);
+  el('koh').value='';el('koa').value='';el('kod').value='';el('kot').value='';
+  if(st){st.textContent='Eklendi!';st.style.color='#4ade80';setTimeout(function(){st.textContent='';},2000);}
+  rKOMatchList();
+}
+
+var KOL_admin = {};
+function rKOMatchList(){
+  Promise.all([fbGet('/ko_matches'),fbGet('/ko_locked')]).then(function(res){
+    KOM=res[0]||{}; KOL_admin=res[1]||{};
+    var matches=Object.keys(KOM).map(function(id){return Object.assign({id:id},KOM[id]);});
+    if(!matches.length){var el_=el('koMatchList');if(el_)el_.innerHTML='';return;}
+    matches.sort(function(a,b){return a.round.localeCompare(b.round)||koSort(a,b);});
+    var html='<div style="margin-top:8px;font-size:11px;color:#7a8aaa;margin-bottom:6px">Mevcut maclar:</div>';
+    html+='<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">';
+    matches.forEach(function(m){
+      var r=KOR[m.id]||{},hr=r.h!==undefined,locked=KOL_admin[m.id]===true;
+      html+='<div style="background:#132040;border:1px solid '+(locked?'rgba(192,57,43,.5)':'#263a5e')+';border-radius:6px;padding:8px">'
+        +'<div style="font-size:10px;color:#D4A843;margin-bottom:4px;display:flex;justify-content:space-between">'
+          +'<span>'+m.round+' &bull; '+m.date+' '+m.time+'</span>'
+          +(locked?'<span style="color:#c0392b;font-weight:700">&#128274; KILITLI</span>':'')
+        +'</div>'
+        +'<div style="font-size:12px;font-weight:600;margin-bottom:6px">'+m.h+' vs '+m.a+'</div>'
+        +'<div style="display:flex;align-items:center;gap:5px;margin-bottom:5px">'
+          +'<input class="sc" type="number" id="korh'+m.id+'" value="'+(hr?r.h:'')+'" placeholder="-" style="width:32px">'
+          +'<span style="color:#7a8aaa">-</span>'
+          +'<input class="sc" type="number" id="kora'+m.id+'" value="'+(hr?r.a:'')+'" placeholder="-" style="width:32px">'
+          +'<label style="font-size:10px;color:#7a8aaa;margin-left:4px"><input type="checkbox" id="koret'+m.id+'" '+(r.et?'checked':'')+' style="width:auto;margin-right:2px" onchange="toggleAdvField(\''+m.id+'\')">Uzatma</label>'
+        +'</div>'
+        +'<div id="koadvField'+m.id+'" style="margin-bottom:5px;'+(r.et?'':'display:none')+'">'
+          +'<label style="font-size:10px;color:#7a8aaa">Turu Kim Gecti?</label>'
+          +'<div style="display:flex;gap:4px;margin-top:2px">'
+            +'<button class="wb '+(r.adv==='H'?'wh':'')+'" id="admAdvH'+m.id+'" onclick="setAdmAdv(\''+m.id+'\',\'H\')">'+m.h+'</button>'
+            +'<button class="wb '+(r.adv==='A'?'wa':'')+'" id="admAdvA'+m.id+'" onclick="setAdmAdv(\''+m.id+'\',\'A\')">'+m.a+'</button>'
+          +'</div>'
+        +'</div>'
+        +'<div style="display:flex;gap:4px;flex-wrap:wrap">'
+          +'<button class="btn bgr" style="font-size:10px;padding:3px 8px" onclick="saveKOR(\''+m.id+'\')">Kaydet</button>'
+          +(locked
+            ?'<button class="btn bo" style="font-size:10px;padding:3px 8px;border-color:#4ade80;color:#4ade80" onclick="doKOUnlock(\''+m.id+'\')">&#128275; Ac</button>'
+            :'<button class="btn bo" style="font-size:10px;padding:3px 8px;border-color:#c0392b;color:#c0392b" onclick="doKOLock(\''+m.id+'\')">&#128274; Kilitle</button>')
+          +'<button class="btn bo" style="font-size:10px;padding:3px 8px" onclick="delKOM(\''+m.id+'\')">Sil</button>'
+        +'</div>'
+      +'</div>';
+    });
+    html+='</div>';
+    var el_=el('koMatchList');if(el_)el_.innerHTML=html;
+  });
+}
+
+var admAdvState = {};
+function setAdmAdv(id, adv) {
+  admAdvState[id] = adv;
+  var h=el('admAdvH'+id), a=el('admAdvA'+id);
+  if(h) h.className='wb '+(adv==='H'?'wh':'');
+  if(a) a.className='wb '+(adv==='A'?'wa':'');
+}
+function toggleAdvField(id) {
+  var cb=el('koret'+id), div=el('koadvField'+id);
+  if(div) div.style.display=cb&&cb.checked?'block':'none';
+}
+async function saveKOR(id){
+  var h=el('korh'+id).value, a=el('kora'+id).value;
+  if(h===''||a===''){alert('Skoru gir!');return;}
+  var btn=document.querySelector('[onclick="saveKOR(\''+id+'\')"]');
+  if(btn){btn.textContent='Kaydediliyor...';btn.disabled=true;}
+  try{
+    var et=el('koret'+id)?el('koret'+id).checked:false;
+    var r={h:+h,a:+a,et:et};
+    if(et && admAdvState[id]) r.adv=admAdvState[id];
+    else if(et && KOR[id]&&KOR[id].adv) r.adv=KOR[id].adv;
+    KOR[id]=r;
+    await fbSet('/ko_r/'+id,r);
+    rKOMatchList();
+  }catch(e){
+    alert('HATA: '+e.message);
+    if(btn){btn.textContent='Kaydet';btn.disabled=false;}
+  }
+}
+
+async function doKOLock(id){
+  await fbSet('/ko_locked/'+id,true);
+  rKOMatchList();
+}
+async function doKOUnlock(id){
+  await fbDel('/ko_locked/'+id);
+  rKOMatchList();
+}
+async function delKOM(id){
+  if(!confirm('Bu maci sil?')) return;
+  delete KOM[id];
+  await fbDel('/ko_matches/'+id);
+  await fbDel('/ko_r/'+id);
+  rKOMatchList();
+}
+
+// Load KO data on startup (after a short delay to let main ld() finish)
+setTimeout(function(){ ldKO(); }, 1000);
+</script>
+<script>
+
+// ─── DATE SORTING HELPER ─────────────────────────
+var MONTH_NUM = {
+  'Oca':1,'Sub':2,'Mar':3,'Nis':4,'May':5,'Haz':6,
+  'Tem':7,'Agu':8,'Eyl':9,'Eki':10,'Kas':11,'Ara':12
+};
+function dateScore(date, time) {
+  if(!date||date.trim()==='') return 99999999;
+  var p = date.trim().split(' ');
+  var day = parseInt(p[0])||99;
+  var mon = p[1] ? (MONTH_NUM[p[1].substring(0,3)]||99) : 99;
+  var t = time ? parseInt((time||'').replace(':',''))||9999 : 9999;
+  return mon*1000000 + day*10000 + t;
+}
+function koSort(a,b){ return dateScore(a.date,a.time)-dateScore(b.date,b.time); }
+
+// ─── FLAG SUPPORT ────────────────────────────────
+var TEAM_FLAGS = {};
+// Build from GD (team name → ISO 2-letter code)
+function buildFlags() {
+  GL.forEach(function(g) {
+    GD[g].forEach(function(t) {
+      TEAM_FLAGS[t[0].toLowerCase()] = t[1];
+      // Also add normalized version
+      TEAM_FLAGS[normName(t[0])] = t[1];
+    });
+  });
+}
+function flagEmoji(code) {
+  if(!code||code.length!==2) return '';
+  var c = code.toUpperCase();
+  return String.fromCodePoint(0x1F1E6+c.charCodeAt(0)-65)+String.fromCodePoint(0x1F1E6+c.charCodeAt(1)-65);
+}
+function getFlag(name) {
+  if(!name) return '🏳';
+  var code = TEAM_FLAGS[name.toLowerCase()] || TEAM_FLAGS[normName(name)];
+  if(!code) return '';
+  return flagEmoji(code);
+}
+
+// ─── KO VIEW TOGGLE ──────────────────────────────
+function switchKOView(view) {
+  el('koview_pred').style.display = view==='pred'?'block':'none';
+  el('koview_tree').style.display = view==='tree'?'block':'none';
+  el('kotab_pred').className = view==='pred'?'btn bg':'btn bo';
+  el('kotab_tree').className = view==='tree'?'btn bg':'btn bo';
+  if(view==='tree') renderBracket();
+}
+
+// ─── BRACKET RENDERER ────────────────────────────
+var BRACKET_ROUNDS = [
+  {key:'Son 32',    label:'SON 32',         slots:16},
+  {key:'Son 16',    label:'SON 16',         slots:8},
+  {key:'Ceyrek Final', label:'CEYREK FİNAL', slots:4},
+  {key:'Yari Final',label:'YARI FİNAL',     slots:2},
+  {key:'Final',     label:'FİNAL',          slots:1}
+];
+var BASE_H = 78; // px per slot in R32
+
+function renderBracket() {
+  var bc = el('bracket_container');
+  if(!bc) return;
+  bc.innerHTML = '<p style="padding:12px;color:#7a8aaa;font-size:12px">Yukleniyor...</p>';
+  Promise.all([fbGet('/ko_matches'),fbGet('/ko_r')]).then(function(res){
+    KOM=res[0]||{}; KOR=res[1]||{};
+    buildFlags();
+    var allM = Object.keys(KOM).map(function(id){return Object.assign({id:id},KOM[id]);});
+    var html = '<div class="bwrap"><div class="bracket" style="gap:12px">';
+    BRACKET_ROUNDS.forEach(function(rd, ri) {
+      var rMatches = allM.filter(function(m){return m.round===rd.key;});
+      rMatches.sort(koSort);
+      var slotH = BASE_H * Math.pow(2, ri);
+      html += '<div class="bround"><div class="blabel">'+rd.label+'</div><div class="bslots">';
+      for(var i=0; i<rd.slots; i++) {
+        var m = rMatches[i];
+        var r = m?(KOR[m.id]||{}):null;
+        var played = r&&r.h!==undefined;
+        html += '<div class="bslot" style="height:'+slotH+'px;padding:2px 0;box-sizing:border-box">';
+        html += m ? bCard(m,r) : '<div class="bempty">?</div>';
+        html += '</div>';
+      }
+      html += '</div></div>';
+      // No connectors - separate columns
+    });
+    // 3rd place
+    var thirdM = allM.filter(function(m){return m.round==='3. luk';});
+    if(thirdM.length) {
+      html += '<div class="bround" style="margin-left:20px"><div class="blabel">3. LUK</div><div class="bslots">';
+      var m=thirdM[0], r=KOR[m.id]||{}, played=r.h!==undefined;
+      var wH=played&&r.h>r.a, wA=played&&r.a>r.h;
+      html += '<div class="bslot" style="height:'+BASE_H+'px;padding:2px 0;box-sizing:border-box">'+
+        '<div class="bmatch'+(played?' bplayed':'')+'">'+
+          '<div class="bdate">'+m.date+' '+m.time+'</div>'+
+          '<div class="bteam'+(wH?' bwin':'')+'"><span class="bflag">'+getFlag(m.h)+'</span><span class="bname">'+m.h+'</span>'+(played?'<span class="bsc">'+r.h+'</span>':'')+  '</div>'+
+          '<div class="bteam'+(wA?' bwin':'')+'"><span class="bflag">'+getFlag(m.a)+'</span><span class="bname">'+m.a+'</span>'+(played?'<span class="bsc">'+r.a+'</span>':'')+  '</div>'+
+        '</div>'+
+      '</div>';
+      html += '</div></div>';
+    }
+    html += '</div></div>';
+    if(bc) bc.innerHTML = html;
+  });
+}
+
+// ─── UPDATE rfix() TO INCLUDE KO ─────────────────
+var _origRfix = rfix;
+rfix = function() {
+  _origRfix();
+  // Also load and show KO matches after a short delay
+  setTimeout(function(){
+    fbGet('/ko_matches').then(function(d){
+      KOM=d||{};
+      var koMatches=Object.keys(KOM).map(function(id){return Object.assign({id:id},KOM[id]);});
+      if(!koMatches.length) return;
+      var fixDiv=el('fixc');
+      if(!fixDiv||!fixDiv.innerHTML) return;
+      koMatches.sort(koSort);
+      var r=KOR||{};
+      var html='<div style="margin-bottom:14px"><div style="font-weight:700;color:#D4A843;font-size:13px;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #263a5e">ELEME TURU</div>';
+      koMatches.forEach(function(m){
+        var res=KOR[m.id],played=res&&res.h!==undefined;
+        var sc=played?res.h+' - '+res.a:'';
+        var scColor=played?(res.h>res.a?'#4ade80':res.h<res.a?'#f87171':'#D4A843'):'';
+        html+='<div style="display:flex;align-items:center;padding:7px 10px;background:#132040;border:1px solid '+(played?'rgba(26,122,74,.35)':'#263a5e')+';border-radius:6px;margin-bottom:4px;gap:6px">'
+          +'<span style="font-size:12px;font-weight:700;color:'+(played?'#7a8aaa':'#e8edf5')+';min-width:42px">'+m.time+'</span>'
+          +'<span style="font-size:10px;color:#7a8aaa;background:#0a1628;padding:1px 5px;border-radius:3px;min-width:50px;text-align:center">'+m.round+'</span>'
+          +'<span style="flex:1;font-size:12px;font-weight:600;'+(played?'color:#7a8aaa':'')+'">'+getFlag(m.h)+' '+m.h+'</span>'
+          +(played?'<span style="font-size:14px;font-weight:700;color:'+scColor+';min-width:40px;text-align:center">'+sc+'</span>':'<span style="font-size:11px;color:#7a8aaa;min-width:40px;text-align:center">vs</span>')
+          +'<span style="flex:1;font-size:12px;font-weight:600;text-align:right;'+(played?'color:#7a8aaa':'')+'">'+m.a+' '+getFlag(m.a)+'</span>'
+          +'</div>';
+      });
+      html+='</div>';
+      fixDiv.innerHTML = fixDiv.innerHTML + html;
+    });
+  }, 800);
+};
+
+// ─── ADMIN SLOT FIELD ────────────────────────────
+// Add slot (bracket position) to admin KO form
+var _origAddKO = addKOMatch;
+addKOMatch = async function(){
+  var h=el('koh').value.trim(), a=el('koa').value.trim();
+  var d=el('kod').value.trim(), t=el('kot').value.trim();
+  var round=el('koround').value;
+  if(!h||!a){alert('Ev sahibi ve deplasman takim adini yaz!');return;}
+  var id='ko_'+Date.now();
+  var match={h:h,a:a,date:d,time:t,round:round};
+  KOM[id]=match;
+  var st=el('kost');
+  if(st){st.textContent='Kaydediliyor...';st.style.color='#7a8aaa';}
+  await fbSet('/ko_matches/'+id,match);
+  el('koh').value='';el('koa').value='';el('kod').value='';el('kot').value='';
+  if(st){st.textContent='Eklendi!';st.style.color='#4ade80';setTimeout(function(){st.textContent='';},2000);}
+  rKOMatchList();
+};
+
+// ─── INIT ────────────────────────────────────────
+setTimeout(function(){ buildFlags(); }, 500);
+</script>
+<script>
+// ─── ELEME TAB (main nav) ────────────────────────
+function releme2() {
+  var bc = el('elemec2');
+  if(bc) bc.innerHTML = '<p style="padding:12px;color:#7a8aaa;font-size:12px">Yukleniyor...</p>';
+  Promise.all([fbGet('/ko_matches'),fbGet('/ko_r')]).then(function(res){
+    KOM=res[0]||{}; KOR=res[1]||{};
+    buildFlags();
+    var allM = Object.keys(KOM).map(function(id){return Object.assign({id:id},KOM[id]);});
+    var info = el('elemeinfo2');
+    if(info) info.textContent = allM.length + ' mac';
+    if(!allM.length){
+      if(bc) bc.innerHTML='<p style="padding:24px;text-align:center;color:#7a8aaa">Eleme turu maclari henuz girilmedi.</p>';
+      return;
+    }
+    var html = '<div class="bwrap"><div class="bracket" style="gap:12px">';
+    BRACKET_ROUNDS.forEach(function(rd, ri) {
+      var rMatches = allM.filter(function(m){return m.round===rd.key;});
+      rMatches.sort(koSort);
+      var slotH = BASE_H * Math.pow(2, ri);
+      html += '<div class="bround"><div class="blabel">'+rd.label+'</div><div class="bslots">';
+      for(var i=0; i<rd.slots; i++) {
+        var m = rMatches[i];
+        var r = m?(KOR[m.id]||{}):null;
+        var played = r&&r.h!==undefined;
+        html += '<div class="bslot" style="height:'+slotH+'px;padding:2px 0;box-sizing:border-box">';
+        if(m) {
+          var wH=played&&r.h>r.a, wA=played&&r.a>r.h;
+          var et=played&&r.et?' <span style="font-size:8px;color:#D4A843">UZ</span>':'';
+          html += '<div class="bmatch'+(played?' bplayed':'')+'">'+
+            '<div class="bdate">'+m.date+' '+m.time+'</div>'+
+            '<div class="bteam'+(wH?' bwin':'')+'"><span class="bflag">'+getFlag(m.h)+'</span><span class="bname">'+m.h+'</span>'+(played?'<span class="bsc">'+r.h+et+'</span>':'')+'</div>'+
+            '<div class="bteam'+(wA?' bwin':'')+'"><span class="bflag">'+getFlag(m.a)+'</span><span class="bname">'+m.a+'</span>'+(played?'<span class="bsc">'+r.a+'</span>':'')+'</div>'+
+          '</div>';
+        } else {
+          html += '<div class="bempty">?</div>';
+        }
+        html += '</div>';
+      }
+      html += '</div></div>';
+    });
+    // 3rd place
+    var thirdM = allM.filter(function(m){return m.round==='3. luk';});
+    if(thirdM.length) {
+      var m=thirdM[0],r=KOR[m.id]||{},played=r.h!==undefined;
+      var wH=played&&r.h>r.a,wA=played&&r.a>r.h;
+      html += '<div class="bround" style="margin-left:16px"><div class="blabel">3. LUK</div><div class="bslots"><div class="bslot" style="height:'+BASE_H+'px;padding:2px 0;box-sizing:border-box"><div class="bmatch'+(played?' bplayed':'')+'"><div class="bdate">'+m.date+' '+m.time+'</div><div class="bteam'+(wH?' bwin':'')+'"><span class="bflag">'+getFlag(m.h)+'</span><span class="bname">'+m.h+'</span>'+(played?'<span class="bsc">'+r.h+'</span>':'')+'</div><div class="bteam'+(wA?' bwin':'')+'"><span class="bflag">'+getFlag(m.a)+'</span><span class="bname">'+m.a+'</span>'+(played?'<span class="bsc">'+r.a+'</span>':'')+'</div></div></div></div></div>';
+    }
+    html += '</div></div>';
+    if(bc) bc.innerHTML = html;
+  });
+}
+
+// ─── HERKES SUB-TABS ─────────────────────────────
+var curHTab = 'g';
+function switchHTab(tab) {
+  curHTab = tab;
+  el('herkes_g').style.display = tab==='g'?'block':'none';
+  el('herkes_ko').style.display = tab==='ko'?'block':'none';
+  el('htab_g').className = tab==='g'?'btn bg':'btn bo';
+  el('htab_ko').className = tab==='ko'?'btn bg':'btn bo';
+  if(tab==='ko') rallKO();
+}
+
+function rallKO() {
+  var div = el('allc_ko');
+  if(!div) return;
+  div.innerHTML = '<p style="padding:12px;color:#7a8aaa;font-size:12px">Yukleniyor...</p>';
+  if(!cc){ div.innerHTML='<p style="padding:20px;text-align:center;color:#7a8aaa">Once giris yap</p>'; return; }
+  Promise.all([
+    fbGet('/ko_r'),
+    fbGet('/comps/'+fkey(cc)+'/users'),
+    fbGet('/comps/'+fkey(cc)+'/ko_preds'),
+    fbGet('/ko_matches')
+  ]).then(function(res){
+    KOR=res[0]||{};
+    var users=res[1]||{}, allKOPreds=res[2]||{};
+    KOM=res[3]||{};
+    buildFlags();
+    var userKeys=Object.keys(users);
+    var names=userKeys.map(function(uk){return (users[uk]&&users[uk].name)?users[uk].name:uk;});
+    var allM=Object.keys(KOM).map(function(id){return Object.assign({id:id},KOM[id]);});
+    allM.sort(koSort);
+    if(!allM.length){
+      div.innerHTML='<p style="padding:24px;text-align:center;color:#7a8aaa;border:1px dashed #263a5e;border-radius:8px">Admin henuz Son 32 maci eklemedi.</p>';
+      return;
+    }
+    // Group by round
+    var byRound={};
+    KO_ROUNDS.forEach(function(rd){
+      var rm=allM.filter(function(m){return m.round===rd.key;});
+      if(rm.length) byRound[rd.key]={label:rd.label,matches:rm};
+    });
+    // Also check 3. luk
+    var thirdM=allM.filter(function(m){return m.round==='3. luk';});
+    if(thirdM.length) byRound['3. luk']={label:'3. LUK',matches:thirdM};
+
+    var html='';
+    Object.keys(byRound).forEach(function(rk){
+      var rd=byRound[rk];
+      html+='<div style="font-weight:700;color:#D4A843;font-size:11px;letter-spacing:1px;margin:14px 0 8px;padding-bottom:4px;border-bottom:2px solid rgba(212,168,67,.2)">'+rd.label+'</div>';
+      rd.matches.forEach(function(m){
+      var r=KOR[m.id], played=r&&r.h!==undefined;
+      var outcome=played?ow(r.h,r.a):null;
+      var realAdv=played?(outcome!=='D'?outcome:(r.adv||null)):null;
+      var resultStr=played?r.h+'-'+r.a+(r.et?' UZ':''):'?';
+      var resultColor=played?'#4ade80':'#7a8aaa';
+      html+='<div style="background:#132040;border:1px solid #263a5e;border-radius:8px;overflow:hidden;margin-bottom:6px">';
+      // Header row
+      html+='<div style="display:flex;align-items:center;justify-content:space-between;padding:7px 10px;background:#0f1e38;border-bottom:1px solid #263a5e;gap:8px">'
+        +'<span style="font-size:12px;font-weight:700">'+getFlag(m.h)+' '+m.h+' <span style="color:#7a8aaa;font-weight:400">vs</span> '+m.a+' '+getFlag(m.a)+'</span>'
+        +'<span style="font-size:11px;color:'+resultColor+';font-weight:700">'+resultStr+'</span>'
+        +'<span style="font-size:10px;color:#7a8aaa">'+m.round+' &bull; '+m.date+'</span>'
+        +'</div>';
+      // Users table
+      html+='<table style="width:100%;border-collapse:collapse">'
+        +'<thead><tr>'
+        +'<th style="padding:4px 8px;font-size:10px;color:#7a8aaa;font-weight:600;text-align:left;border-bottom:1px solid #263a5e">Kisi</th>'
+        +'<th style="padding:4px 8px;font-size:10px;color:#7a8aaa;font-weight:600;text-align:center;border-bottom:1px solid #263a5e">90 dk</th>'
+        +'<th style="padding:4px 8px;font-size:10px;color:#7a8aaa;font-weight:600;text-align:center;border-bottom:1px solid #263a5e">Turu Gec&#807;er</th>'
+        +'</tr></thead><tbody>';
+      names.forEach(function(uname, ni){
+        var p=(allKOPreds[fkey(uname)]||{})[m.id]||{};
+        var hasPred=p.w!==undefined;
+        // 90dk cell
+        var wLabel=!hasPred?'?':p.w==='H'?m.h:p.w==='A'?m.a:'Uzatma';
+        var scoreStr=(p.hs!==undefined&&p.as!==undefined)?p.hs+'-'+p.as:'';
+        var exact=played&&p.hs===r.h&&p.as===r.a;
+        var correct90=played&&hasPred&&p.w===outcome;
+        var tc90, bg90;
+        if(!played||!hasPred){tc90='#60b4f0';bg90='transparent';}
+        else if(exact){tc90='#D4A843';bg90='rgba(212,168,67,.1)';}
+        else if(correct90){tc90='#4ade80';bg90='rgba(26,122,74,.1)';}
+        else{tc90='#f87171';bg90='rgba(192,57,43,.1)';}
+        var cell90='<span style="color:'+tc90+';background:'+bg90+';padding:1px 5px;border-radius:3px;font-size:11px;font-weight:600">'
+          +wLabel+(scoreStr?' <span style="font-weight:400;font-size:10px">('+scoreStr+')</span>':'')
+          +'</span>';
+        // adv cell
+        var advLabel=!p.adv?'—':p.adv==='H'?m.h:m.a;
+        var advCorrect=realAdv&&p.adv&&p.adv===realAdv;
+        var advWrong=realAdv&&p.adv&&p.adv!==realAdv;
+        var tcAdv=!p.adv?'#3a4a6a':!realAdv?'#60b4f0':advCorrect?'#4ade80':'#f87171';
+        var cellAdv='<span style="color:'+tcAdv+';font-size:11px;font-weight:600">'+advLabel+'</span>';
+        html+='<tr style="border-bottom:1px solid rgba(38,58,94,.5)">'
+          +'<td style="padding:5px 8px;font-size:11px;font-weight:600">'+uname+'</td>'
+          +'<td style="padding:5px 8px;text-align:center">'+cell90+'</td>'
+          +'<td style="padding:5px 8px;text-align:center">'+cellAdv+'</td>'
+          +'</tr>';
+      });
+      html+='</tbody></table></div>';
+      }); // end matches.forEach
+    }); // end byRound.forEach
+    div.innerHTML = html;
+  });
+}
+
+// ─── ALSO SHOW KO IN FIKSTÜR (with flags) ────────
+// Override the KO section in rfix to use flags
+var _rfix2_done = false;
+var _origRall = rall;
+rall = function(){
+  _origRall();
+  // Make sure herkes_g is shown by default
+  if(el('herkes_g')) el('herkes_g').style.display = 'block';
+};
+</script>
+<script>
+// ─── FİKSTÜR SUB-TABS ────────────────────────────
+var curFTab = 'g';
+function switchFTab(tab) {
+  curFTab = tab;
+  el('fix_g').style.display = tab==='g'?'block':'none';
+  el('fix_ko').style.display = tab==='ko'?'block':'none';
+  el('ftab_g').className = tab==='g'?'btn bg':'btn bo';
+  el('ftab_ko').className = tab==='ko'?'btn bg':'btn bo';
+  if(tab==='ko') rfixKO();
+}
+
+// ─── FİKSTÜR GROUP (reverse: newest first) ───────
+// rfix() already uses DAYS.slice().reverse() → group matches newest first
+// But it writes to #fixc inside #fix_g → OK
+
+// ─── FİKSTÜR KO ──────────────────────────────────
+function rfixKO() {
+  var div = el('fixc_ko');
+  if(!div) return;
+  div.innerHTML = '<p style="padding:12px;color:#7a8aaa;font-size:12px">Yukleniyor...</p>';
+  Promise.all([fbGet('/ko_matches'),fbGet('/ko_r')]).then(function(res){
+    KOM=res[0]||{}; KOR=res[1]||{};
+    buildFlags();
+    var matches=Object.keys(KOM).map(function(id){return Object.assign({id:id},KOM[id]);});
+    if(!matches.length){
+      div.innerHTML='<div style="padding:24px;text-align:center;color:#7a8aaa;border:1px dashed #263a5e;border-radius:8px">Eleme turu maclari henuz girilmedi.</div>';
+      return;
+    }
+    matches.sort(koSort);
+    // Group by date (like group stage)
+    var byDate={};
+    matches.forEach(function(m){
+      var dk=m.date||'Tarih Belirsiz';
+      if(!byDate[dk]) byDate[dk]=[];
+      byDate[dk].push(m);
+    });
+    var sortedDates=Object.keys(byDate).sort(function(a,b){return dateScore(a,'')-dateScore(b,'');});
+    var html='';
+    sortedDates.forEach(function(date){
+      var dm=byDate[date];
+      dm.sort(function(a,b){return (a.time||'').localeCompare(b.time||'');});
+      html+='<div style="margin-bottom:14px"><div style="font-weight:700;color:#D4A843;font-size:13px;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #263a5e">'+date+'</div>';
+      dm.forEach(function(m){
+        var r=KOR[m.id],played=r&&r.h!==undefined;
+        var sc=played?r.h+' - '+r.a+(r.et?' (Uzatma)':''):'';
+        var scColor=played?(r.h>r.a?'#4ade80':r.h<r.a?'#f87171':'#D4A843'):'';
+        html+='<div style="display:flex;align-items:center;padding:8px 10px;background:#132040;border:1px solid '+(played?'rgba(26,122,74,.35)':'#263a5e')+';border-radius:6px;margin-bottom:4px;gap:6px">'
+          +'<span style="font-size:11px;font-weight:700;color:'+(played?'#7a8aaa':'#e8edf5')+';min-width:42px">'+m.time+'</span>'
+          +'<span style="font-size:10px;color:#7a8aaa;background:#0a1628;padding:1px 5px;border-radius:3px;min-width:50px;text-align:center">'+m.round+'</span>'
+          +'<span style="flex:1;font-size:12px;font-weight:600;'+(played&&r.h<r.a?'color:#7a8aaa':'')+'">'+getFlag(m.h)+' '+m.h+'</span>'
+          +(played?'<span style="font-size:14px;font-weight:700;color:'+scColor+';min-width:70px;text-align:center">'+sc+'</span>':'<span style="font-size:11px;color:#7a8aaa;min-width:40px;text-align:center">vs</span>')
+          +'<span style="flex:1;font-size:12px;font-weight:600;text-align:right;'+(played&&r.a<r.h?'color:#7a8aaa':'')+'">'+m.a+' '+getFlag(m.a)+'</span>'
+          +'</div>';
+      });
+      html+='</div>';
+    });
+    div.innerHTML = html;
+  });
+}
+</script>
