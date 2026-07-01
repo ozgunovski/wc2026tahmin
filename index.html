@@ -961,12 +961,12 @@ function rkomc() {
       return;
     }
     matches.sort(koSort);
-    // Group by round
+    // Group by round (KO_ROUNDS is array of strings)
     var html='';
-    KO_ROUNDS.forEach(function(rd){
-      var rm=matches.filter(function(m){return m.round===rd.key;});
+    KO_ROUNDS.concat(['3. luk']).forEach(function(round){
+      var rm=matches.filter(function(m){return m.round===round;});
       if(!rm.length) return;
-      html+='<div style="font-weight:700;color:#D4A843;font-size:11px;letter-spacing:1px;margin:12px 0 8px;padding-bottom:4px;border-bottom:2px solid rgba(212,168,67,.2)">'+rd.label+'</div>';
+      html+='<div style="font-weight:700;color:#D4A843;font-size:12px;letter-spacing:1px;margin:12px 0 8px;padding:5px 10px;background:rgba(212,168,67,.06);border-left:3px solid #D4A843;border-radius:0 4px 4px 0">'+round.toUpperCase()+'</div>';
       rm.forEach(function(m){
       var p=myKO[m.id]||{}, sv=p.w!==undefined, locked=KOL[m.id]===true;
       var hsV=p.hs!==undefined?p.hs:'', asV=p.as!==undefined?p.as:'';
@@ -998,7 +998,7 @@ function rkomc() {
         advRow+
         '</div>';
       }); // rm.forEach
-    }); // KO_ROUNDS.forEach
+    }); // rounds.forEach
     el('komc').innerHTML=html;
   });
 }
@@ -1434,21 +1434,14 @@ function rallKO() {
       div.innerHTML='<p style="padding:24px;text-align:center;color:#7a8aaa;border:1px dashed #263a5e;border-radius:8px">Admin henuz Son 32 maci eklemedi.</p>';
       return;
     }
-    // Group by round
-    var byRound={};
-    KO_ROUNDS.forEach(function(rd){
-      var rm=allM.filter(function(m){return m.round===rd.key;});
-      if(rm.length) byRound[rd.key]={label:rd.label,matches:rm};
-    });
-    // Also check 3. luk
-    var thirdM=allM.filter(function(m){return m.round==='3. luk';});
-    if(thirdM.length) byRound['3. luk']={label:'3. LUK',matches:thirdM};
-
+    // Group by round (KO_ROUNDS is array of strings)
+    var allRounds=KO_ROUNDS.concat(['3. luk']);
     var html='';
-    Object.keys(byRound).forEach(function(rk){
-      var rd=byRound[rk];
-      html+='<div style="font-weight:700;color:#D4A843;font-size:11px;letter-spacing:1px;margin:14px 0 8px;padding-bottom:4px;border-bottom:2px solid rgba(212,168,67,.2)">'+rd.label+'</div>';
-      rd.matches.forEach(function(m){
+    allRounds.forEach(function(round){
+      var rm=allM.filter(function(m){return m.round===round;});
+      if(!rm.length) return;
+      html+='<div style="font-weight:700;color:#D4A843;font-size:12px;letter-spacing:1px;margin:14px 0 8px;padding:6px 10px;background:rgba(212,168,67,.06);border-left:3px solid #D4A843;border-radius:0 4px 4px 0">'+round.toUpperCase()+'</div>';
+      rm.forEach(function(m){
       var r=KOR[m.id], played=r&&r.h!==undefined;
       var outcome=played?ow(r.h,r.a):null;
       var realAdv=played?(outcome!=='D'?outcome:(r.adv||null)):null;
@@ -1497,8 +1490,8 @@ function rallKO() {
           +'</tr>';
       });
       html+='</tbody></table></div>';
-      }); // end matches.forEach
-    }); // end byRound.forEach
+      }); // end rm.forEach
+    }); // end allRounds.forEach
     div.innerHTML = html;
   });
 }
@@ -1543,20 +1536,13 @@ function rfixKO() {
       return;
     }
     matches.sort(koSort);
-    // Group by date (like group stage)
-    var byDate={};
-    matches.forEach(function(m){
-      var dk=m.date||'Tarih Belirsiz';
-      if(!byDate[dk]) byDate[dk]=[];
-      byDate[dk].push(m);
-    });
-    var sortedDates=Object.keys(byDate).sort(function(a,b){return dateScore(a,'')-dateScore(b,'');});
+    // Group by round, then by date within each round
     var html='';
-    sortedDates.forEach(function(date){
-      var dm=byDate[date];
-      dm.sort(function(a,b){return (a.time||'').localeCompare(b.time||'');});
-      html+='<div style="margin-bottom:14px"><div style="font-weight:700;color:#D4A843;font-size:13px;margin-bottom:6px;padding-bottom:4px;border-bottom:1px solid #263a5e">'+date+'</div>';
-      dm.forEach(function(m){
+    KO_ROUNDS.concat(['3. luk']).forEach(function(round){
+      var rm=matches.filter(function(m){return m.round===round;});
+      if(!rm.length) return;
+      html+='<div style="margin-bottom:16px"><div style="font-weight:700;color:#D4A843;font-size:13px;margin-bottom:8px;padding:6px 10px;background:rgba(212,168,67,.06);border-left:3px solid #D4A843;border-radius:0 4px 4px 0">'+round.toUpperCase()+'</div>';
+      rm.forEach(function(m){
         var r=KOR[m.id],played=r&&r.h!==undefined;
         var sc=played?r.h+' - '+r.a+(r.et?' (Uzatma)':''):'';
         var scColor=played?(r.h>r.a?'#4ade80':r.h<r.a?'#f87171':'#D4A843'):'';
@@ -1569,7 +1555,7 @@ function rfixKO() {
           +'</div>';
       });
       html+='</div>';
-    });
+    }); // rounds.forEach
     div.innerHTML = html;
   });
 }
