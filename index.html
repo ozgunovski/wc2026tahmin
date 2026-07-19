@@ -411,14 +411,16 @@ tr:last-child td{border:0}
     <div style="background:#0a1628;border:1px solid #263a5e;border-radius:8px;padding:12px;margin-bottom:14px">
       <div style="font-size:12px;font-weight:700;color:#D4A843;margin-bottom:10px">&#127942; Kazanan Ekrani Ayarlari</div>
       <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
-        <div><label class="lbl">Dunya Kupasi Sampiyonu</label><input id="kaz_t" type="text" placeholder="orn. Ispanya"/></div>
-        <div><label class="lbl">Yarisma Birincisi</label><input id="kaz_u" type="text" placeholder="Kullanici adi"/></div>
+        <div><label class="lbl">Dunya Kupasi Sampiyonu (tek)</label><input id="kaz_t" type="text" placeholder="orn. Ispanya"/></div>
+        <div><label class="lbl">Yarisma Kodu</label><input id="kaz_code" type="text" placeholder="orn. OFIS" style="text-transform:uppercase" oninput="this.value=this.value.toUpperCase()"/></div>
+        <div style="grid-column:1/-1"><label class="lbl">O Gruptaki Birinci</label><input id="kaz_u" type="text" placeholder="Kullanici adi"/></div>
       </div>
       <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
         <button class="btn bgr" style="font-size:12px" onclick="saveKazanan()">&#10003; Kaydet &amp; Yayinla</button>
         <button class="btn bo" style="font-size:12px" onclick="clearKazanan()">Temizle</button>
         <span id="kazst" style="font-size:11px;color:#4ade80"></span>
       </div>
+      <p style="font-size:11px;color:#7a8aaa;margin-top:6px">Her grubu ayri kaydet: once OFIS kodunu yaz ve birincisini kaydet, sonra NBA kodunu yaz ve NBA birincisini kaydet.</p>
     </div>
     <!-- BONUS -->
     <div style="background:#0a1628;border:1px solid #263a5e;border-radius:8px;padding:12px;margin-bottom:14px">
@@ -578,12 +580,8 @@ function normName(s){
     .replace(/\u00e9|\u00e8|\u00ea/g,'e').replace(/\u00e1|\u00e0|\u00e2/g,'a')
     .replace(/[^a-z0-9 ]/g,'').replace(/\s+/g,' ').trim();
 }
-function getNames(s){
-  // "/" ile ayrilmis esit durumlar icin (orn. "Pedri / Modric")
-  if(!s) return [];
-  return s.split('/').map(function(n){return n.trim();}).filter(function(n){return n;});
-}
 function nameMatch(a,b){
+  // Esnek eslesme: tam esitlik VEYA soyad eslesme
   if(!a||!b)return false;
   if(a===b)return true;
   var shorter=a.length<b.length?a:b;
@@ -591,28 +589,32 @@ function nameMatch(a,b){
   if(shorter.length<3)return false;
   return longer.endsWith(shorter)||longer.includes(' '+shorter);
 }
-function nameMatchAny(pred, official){
-  // official birden fazla isim iceriyorsa (esitlik), herhangi biriyle eslestir
-  var names = getNames(official);
-  if(!names.length) return false;
-  return names.some(function(n){ return nameMatch(pred, n); });
+function toNormArr(val){
+  // "/" ile ayir, sonra her parcayi normName'e gonder
+  // ONEMLI: normName "/" siliyor, bu yuzden once bol sonra normalize et
+  if(!val) return [];
+  return val.split('/').map(function(n){ return normName(n.trim()); }).filter(function(n){ return n; });
 }
-function scorecat(p1,p2,r1,r2){
-  if(!r1)return 0;
-  // r1 ve r2 "/" iceriyorsa esitlik var
-  var r1names=getNames(r1), r2names=r2?getNames(r2):[];
-  var m11=nameMatchAny(p1,r1),m22=r2?nameMatchAny(p2,r2):false;
-  var m12=r2?nameMatchAny(p1,r2):false,m21=r2?nameMatchAny(p2,r1):false;
-  if(m11&&m22)return 15;
-  if(r2&&m12&&m21)return 10;
-  if(m11)return 5;
-  if(r2&&m22)return 3;
+function scorecatArr(p1,p2,r1arr,r2arr){
+  if(!r1arr.length) return 0;
+  function anyM(p,arr){ return arr.some(function(r){ return nameMatch(p,r); }); }
+  var m11=anyM(p1,r1arr), m22=r2arr.length?anyM(p2,r2arr):false;
+  var m12=r2arr.length?anyM(p1,r2arr):false, m21=anyM(p2,r1arr);
+  if(m11&&m22) return 15;
+  if(r2arr.length&&m12&&m21) return 10;
+  if(m11) return 5;
+  if(r2arr.length&&m22) return 3;
   return 0;
 }
+function scorecat(p1,p2,r1,r2){
+  // Eski imza korunuyor (string input) - dahili olarak array'e cevirir
+  return scorecatArr(p1,p2,r1?[r1]:[],r2?[r2]:[]);
+}
 function calcSpecial(pred){
-  if(!pred||!SP)return 0;
-  return scorecat(normName(pred.g1||''),normName(pred.g2||''),normName(SP.g1||''),normName(SP.g2||''))
-        +scorecat(normName(pred.a1||''),normName(pred.a2||''),normName(SP.a1||''),normName(SP.a2||''));
+  if(!pred||!SP) return 0;
+  // toNormArr: "/" ile bolar (tie), sonra normalize eder - sira onemli!
+  return scorecatArr(normName(pred.g1||''),normName(pred.g2||''),toNormArr(SP.g1||''),toNormArr(SP.g2||''))
+        +scorecatArr(normName(pred.a1||''),normName(pred.a2||''),toNormArr(SP.a1||''),toNormArr(SP.a2||''));
 }
 function calcScore(up){
   var pts=0,cor=0,exact=0,outcome=0,scored=0;
@@ -1706,12 +1708,14 @@ function startFireworks(canvas) {
 async function saveKazanan() {
   var team = el('kaz_t') ? el('kaz_t').value.trim() : '';
   var user = el('kaz_u') ? el('kaz_u').value.trim() : '';
+  var code = el('kaz_code') ? el('kaz_code').value.trim().toUpperCase() : (cc||'');
   var st = el('kazst');
+  if(!code){alert('Yarisma kodunu gir!');return;}
   if(st){st.textContent='Kaydediliyor...';st.style.color='#7a8aaa';}
   try {
     if(team) await fbSet('/wc_champion', team);
-    if(user && cc) await fbSet('/comps/'+fkey(cc)+'/comp_winner', user);
-    if(st){st.textContent='Yayinlandi!';st.style.color='#4ade80';setTimeout(function(){st.textContent='';},3000);}
+    if(user) await fbSet('/comps/'+fkey(code)+'/comp_winner', user);
+    if(st){st.textContent=code+' icin kaydedildi!';st.style.color='#4ade80';setTimeout(function(){st.textContent='';},3000);}
   } catch(e) {
     if(st){st.textContent='HATA: '+e.message;st.style.color='#f87171';}
   }
