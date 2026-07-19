@@ -98,6 +98,10 @@ tr:last-child td{border:0}
 .bempty{background:rgba(255,255,255,.02);border:1px dashed rgba(255,255,255,.08);border-radius:10px;width:100%;height:70px;display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.12);font-size:22px;font-weight:300}
 .bconn{flex-shrink:0;width:14px;display:flex;flex-direction:column}
 .bconn-label{height:26px;flex-shrink:0}
+
+@keyframes kazBounce{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-15px) scale(1.1)}}
+@keyframes kazGlow{0%,100%{text-shadow:0 0 40px rgba(212,168,67,.4)}50%{text-shadow:0 0 80px rgba(212,168,67,.8),0 0 120px rgba(212,168,67,.4)}}
+#kaz_takim{animation:kazGlow 2s ease-in-out infinite}
 </style>
 </head>
 <body>
@@ -111,7 +115,8 @@ tr:last-child td{border:0}
   <span class="nt" id="n5" onclick="go(5)">Gol/Asist</span>
   <span class="nt" id="n6" onclick="go(6)">Kurallar</span>
   <span class="nt" id="n7" onclick="go(7)">Siralama</span>
-  <span class="nt" id="n8" onclick="go(8)">Admin</span>
+  <span class="nt" id="n8" onclick="go(8)">&#127942; Kazanan</span>
+  <span class="nt" id="n9" onclick="go(9)">Admin</span>
   <span class="nr"><span class="bc" id="ub" style="display:none"></span></span>
 </nav>
 
@@ -326,8 +331,23 @@ tr:last-child td{border:0}
   <div id="lbc"></div>
 </div>
 
-<!-- p3 HERKES -->
+<!-- p8 KAZANAN -->
 <div class="pg" id="p8">
+  <canvas id="fw_canvas" style="position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;display:none"></canvas>
+  <div id="kaz_content" style="position:relative;z-index:1;text-align:center;padding:20px 16px;min-height:80vh;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px">
+    <div style="font-size:72px;animation:kazBounce 1.5s ease-in-out infinite">&#127942;</div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:15px;font-weight:700;color:#7a8aaa;letter-spacing:3px;text-transform:uppercase">2026 FIFA D&#220;NYA KUPASI &#350;AMPIYONU</div>
+    <div id="kaz_takim" style="font-family:'Barlow Condensed',sans-serif;font-size:52px;font-weight:800;color:#D4A843;line-height:1;text-shadow:0 0 40px rgba(212,168,67,.4)"></div>
+    <div style="width:60px;height:2px;background:linear-gradient(90deg,transparent,#D4A843,transparent);margin:8px 0"></div>
+    <div style="font-family:'Barlow Condensed',sans-serif;font-size:14px;font-weight:700;color:#7a8aaa;letter-spacing:3px;text-transform:uppercase">TAHMIN YARISMASI BIRINCISI</div>
+    <div id="kaz_user" style="font-family:'Barlow Condensed',sans-serif;font-size:40px;font-weight:800;color:#fff;line-height:1"></div>
+    <div id="kaz_pts" style="font-size:16px;color:#7a8aaa;margin-top:-8px"></div>
+    <div id="kaz_empty" style="color:#7a8aaa;font-size:14px">Admin henuz kazananlar&#305; girmedi.</div>
+  </div>
+</div>
+
+<!-- p9 ADMIN -->
+<div class="pg" id="p9">
   <div class="h2">ADMIN PANELI</div>
   <div id="admlk">
     <div class="fg" style="max-width:280px">
@@ -386,6 +406,19 @@ tr:last-child td{border:0}
         <span id="kost" style="font-size:11px;color:#4ade80"></span>
       </div>
       <div id="koMatchList" style="margin-top:10px"></div>
+    </div>
+    <!-- KAZANAN -->
+    <div style="background:#0a1628;border:1px solid #263a5e;border-radius:8px;padding:12px;margin-bottom:14px">
+      <div style="font-size:12px;font-weight:700;color:#D4A843;margin-bottom:10px">&#127942; Kazanan Ekrani Ayarlari</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:10px">
+        <div><label class="lbl">Dunya Kupasi Sampiyonu</label><input id="kaz_t" type="text" placeholder="orn. Ispanya"/></div>
+        <div><label class="lbl">Yarisma Birincisi</label><input id="kaz_u" type="text" placeholder="Kullanici adi"/></div>
+      </div>
+      <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap">
+        <button class="btn bgr" style="font-size:12px" onclick="saveKazanan()">&#10003; Kaydet &amp; Yayinla</button>
+        <button class="btn bo" style="font-size:12px" onclick="clearKazanan()">Temizle</button>
+        <span id="kazst" style="font-size:11px;color:#4ade80"></span>
+      </div>
     </div>
     <!-- BONUS -->
     <div style="background:#0a1628;border:1px solid #263a5e;border-radius:8px;padding:12px;margin-bottom:14px">
@@ -470,7 +503,7 @@ async function ld(){
 function go(i){
   document.querySelectorAll('.pg').forEach(function(p,j){p.classList.toggle('on',j===i);});
   document.querySelectorAll('.nt').forEach(function(t,j){t.classList.toggle('on',j===i);});
-  if(i===1)rp();if(i===2)rall();if(i===3)rfix();if(i===4)releme2();if(i===5)rspecial();if(i===7)rlb();if(i===8)ra();
+  if(i===1)rp();if(i===2)rall();if(i===3)rfix();if(i===4)releme2();if(i===5)rspecial();if(i===7)rlb();if(i===8)rkazanan();if(i===9)ra();
 }
 
 function showR(){
@@ -1572,4 +1605,123 @@ function rfixKO() {
     div.innerHTML = html;
   });
 }
+</script>
+<script>
+// ─── KAZANAN ─────────────────────────────────────
+function rkazanan() {
+  Promise.all([
+    fbGet('/wc_champion'),
+    cc ? fbGet('/comps/'+fkey(cc)+'/comp_winner') : Promise.resolve(null)
+  ]).then(function(res){
+    var champion = res[0], winner = res[1];
+    var hasData = champion || winner;
+    el('kaz_empty').style.display = hasData ? 'none' : 'block';
+    if(!hasData) return;
+
+    // Show fireworks
+    var canvas = el('fw_canvas');
+    if(canvas){ canvas.style.display='block'; startFireworks(canvas); }
+
+    // Team
+    var takim = el('kaz_takim');
+    if(takim && champion) {
+      var flag = getFlag(normName(champion));
+      // Try direct lookup too
+      var code = TEAM_FLAGS[champion.toLowerCase()] || TEAM_FLAGS[normName(champion)];
+      var flagStr = code ? flagEmoji(code) : '';
+      takim.textContent = (flagStr ? flagStr+' ' : '') + champion.toUpperCase();
+    }
+
+    // User winner
+    var userDiv = el('kaz_user');
+    if(userDiv && winner) userDiv.textContent = '&#128081; ' + winner;
+
+    // Load top score
+    if(cc && winner) {
+      Promise.all([fbGet('/wc_r'),fbGet('/comps/'+fkey(cc)+'/preds'),fbGet('/wc_special'),fbGet('/comps/'+fkey(cc)+'/special'),fbGet('/ko_r'),fbGet('/comps/'+fkey(cc)+'/ko_preds')]).then(function(r){
+        RE=r[0]||{};SP=r[2]||{};KOR=r[4]||{};
+        var up=r[1]?r[1][fkey(winner)]||{}:{};
+        var spPred=r[3]?r[3][fkey(winner)]||{}:{};
+        var koPreds=r[5]?r[5][fkey(winner)]||{}:{};
+        var sc=calcScore(up);
+        var spPts=calcSpecial(spPred);
+        var koSc=calcAllKOScore(koPreds);
+        var total=sc.pts+spPts+koSc.pts;
+        var ptsDiv=el('kaz_pts');
+        if(ptsDiv && total>0) ptsDiv.textContent = total + ' puan ile birinci!';
+      });
+    }
+  });
+}
+
+function startFireworks(canvas) {
+  var ctx = canvas.getContext('2d');
+  var W = canvas.width = window.innerWidth;
+  var H = canvas.height = window.innerHeight;
+  var particles = [];
+  var colors = ['#D4A843','#fff','#4ade80','#60b4f0','#f87171','#a78bfa','#fbbf24'];
+
+  function burst() {
+    var x = W*0.2 + Math.random()*W*0.6;
+    var y = H*0.1 + Math.random()*H*0.45;
+    var hue = colors[Math.floor(Math.random()*colors.length)];
+    for(var i=0;i<60;i++){
+      var angle = (Math.PI*2/60)*i;
+      var speed = 2+Math.random()*4;
+      particles.push({x:x,y:y,vx:Math.cos(angle)*speed,vy:Math.sin(angle)*speed,life:1,color:hue,size:2+Math.random()*2});
+    }
+  }
+
+  function draw() {
+    ctx.fillStyle='rgba(10,22,40,0.15)';
+    ctx.fillRect(0,0,W,H);
+    particles=particles.filter(function(p){return p.life>0;});
+    particles.forEach(function(p){
+      p.x+=p.vx; p.y+=p.vy; p.vy+=0.06; p.life-=0.012;
+      ctx.globalAlpha=p.life;
+      ctx.fillStyle=p.color;
+      ctx.beginPath();
+      ctx.arc(p.x,p.y,p.size,0,Math.PI*2);
+      ctx.fill();
+    });
+    ctx.globalAlpha=1;
+    requestAnimationFrame(draw);
+  }
+
+  setInterval(burst, 700);
+  burst(); burst();
+  draw();
+}
+
+async function saveKazanan() {
+  var team = el('kaz_t') ? el('kaz_t').value.trim() : '';
+  var user = el('kaz_u') ? el('kaz_u').value.trim() : '';
+  var st = el('kazst');
+  if(st){st.textContent='Kaydediliyor...';st.style.color='#7a8aaa';}
+  try {
+    if(team) await fbSet('/wc_champion', team);
+    if(user && cc) await fbSet('/comps/'+fkey(cc)+'/comp_winner', user);
+    if(st){st.textContent='Yayinlandi!';st.style.color='#4ade80';setTimeout(function(){st.textContent='';},3000);}
+  } catch(e) {
+    if(st){st.textContent='HATA: '+e.message;st.style.color='#f87171';}
+  }
+}
+
+async function clearKazanan() {
+  if(!confirm('Kazanan ekranini temizle?')) return;
+  await fbDel('/wc_champion');
+  if(cc) await fbDel('/comps/'+fkey(cc)+'/comp_winner');
+  el('kaz_t').value=''; el('kaz_u').value='';
+  var st=el('kazst'); if(st){st.textContent='Temizlendi';setTimeout(function(){st.textContent='';},2000);}
+}
+
+// Load winners in admin panel
+var _ra2 = ra;
+ra = function(){
+  _ra2();
+  setTimeout(function(){
+    fbGet('/wc_champion').then(function(t){if(el('kaz_t')&&t)el('kaz_t').value=t;});
+    if(cc) fbGet('/comps/'+fkey(cc)+'/comp_winner').then(function(u){if(el('kaz_u')&&u)el('kaz_u').value=u;});
+  },400);
+};
 </script>
